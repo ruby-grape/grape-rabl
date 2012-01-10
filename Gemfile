@@ -9,5 +9,4 @@ group :test do
   gem "rspec", "~> 2.8.0"
   gem "rack-test"
   gem "rake"
-  gem "ruby-debug19"
 end
