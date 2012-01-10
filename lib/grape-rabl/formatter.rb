@@ -1,4 +1,5 @@
 require 'tilt'
+Rabl.register!
 
 module Grape
   module Middleware
@@ -7,10 +8,11 @@ module Grape
 
       def after
         status, headers, bodies = *@app_response
+        current_endpoint = env['api.endpoint']
 
-        rabl(bodies.first) do |template|
+        rabl(current_endpoint) do |template|
           engine = ::Tilt.new(File.join(env['api.tilt.root'], template))
-          rendered = engine.render(bodies.first, {})
+          rendered = engine.render(current_endpoint, {})
           Rack::Response.new(rendered, status, headers).to_a
         end
       end
@@ -24,8 +26,12 @@ module Grape
       end
 
       def rablable?(endpoint)
-        set_view_root unless env['api.tilt.root']
-        endpoint.is_a?(Grape::Endpoint) && endpoint.options[:route_options][:rabl]
+        if template = endpoint.options[:route_options][:rabl]
+          set_view_root unless env['api.tilt.root']
+          template
+        else
+          false
+        end
       end
   
       def set_view_root

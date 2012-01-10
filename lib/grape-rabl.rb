@@ -1,5 +1,4 @@
 require "rabl"
 require "grape"
 require "grape-rabl/version"
-require "grape-rabl/endpoint"
 require "grape-rabl/formatter"

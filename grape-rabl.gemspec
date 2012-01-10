@@ -4,8 +4,8 @@ require File.expand_path('../lib/grape-rabl/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Piotr Niełacny"]
   gem.email         = ["piotr.nielacny@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Use rabl in grape}
+  gem.summary       = %q{Use rabl in grape}
   gem.homepage      = ""
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
@@ -16,4 +16,6 @@ Gem::Specification.new do |gem|
   gem.version       = Grape::Rabl::VERSION
 
   gem.add_dependency "rabl"
+  gem.add_dependency "tilt"
+  gem.add_dependency "i18n"
 end
