@@ -2,7 +2,7 @@
 
 Use rabl templates in grape!
 
-[![Build Status](http://travis-ci.org/LTe/grape-rabl.png)](http://github.com/LTe/grape-rabl)
+[![Build Status](https://secure.travis-ci.org/LTe/grape-rabl.png)](http://travis-ci.org/LTe/grape-rabl) [![Dependency Status](https://gemnasium.com/LTe/grape-rabl.png)](https://gemnasium.com/LTe/grape-rabl)
 
 
 ## Installation
