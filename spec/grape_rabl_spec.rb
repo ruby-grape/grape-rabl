@@ -26,14 +26,16 @@ describe Grape::Rabl do
       lambda{ get "/home" }.should_not raise_error("Use Rack::Config to set 'api.tilt.root' in config.ru")
     end
 
-    it "should render rabl template" do
-      subject.get("/home", :rabl => "user.rabl") do
-        @user = OpenStruct.new(:name => "LTe", :email => "email@example.com")
-        @project = OpenStruct.new(:name => "First")
-      end
+    ["user", "user.rabl"].each do |rabl_option|
+      it "should render rabl template (#{rabl_option})" do
+        subject.get("/home", :rabl => rabl_option) do
+          @user = OpenStruct.new(:name => "LTe", :email => "email@example.com")
+          @project = OpenStruct.new(:name => "First")
+        end
 
-      get "/home"
-      last_response.body.should == '{"user":{"name":"LTe","email":"email@example.com","project":{"name":"First"}}}'
+        get "/home"
+        last_response.body.should == '{"user":{"name":"LTe","email":"email@example.com","project":{"name":"First"}}}'
+      end
     end
   end
 end

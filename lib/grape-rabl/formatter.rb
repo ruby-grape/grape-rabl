@@ -11,9 +11,19 @@ module Grape
         current_endpoint = env['api.endpoint']
 
         rabl(current_endpoint) do |template|
-          engine = ::Tilt.new(File.join(env['api.tilt.root'], template))
+          engine = ::Tilt.new(view_path(template))
           rendered = engine.render(current_endpoint, {})
           Rack::Response.new(rendered, status, headers).to_a
+        end
+      end
+
+      private
+
+      def view_path(template)
+        if template.split(".")[-1] == "rabl"
+          File.join(env['api.tilt.root'], template)
+        else
+          File.join(env['api.tilt.root'], (template + ".rabl"))
         end
       end
 

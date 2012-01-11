@@ -41,18 +41,27 @@ end
 To *get post put delete options* add **:rabl** options with template name.
 
 ```ruby
-get "/path", :rabl => "template_name.rabl" do
+get "/path", :rabl => "template_name" do
   # stuff
   @var = "hello"
 end
 
-post "/path", :rabl => "template_name_diff.rabl" do
+post "/path", :rabl => "template_name_diff" do
   # stuff
   @user = User.find_user("email@example.com")
 end
 ```
 
 **You can use instance variables in templates!**
+
+## Template name
+
+You can use "**view.rabl**" or just "**view**"
+
+```ruby
+get "/home", :rabl => "view"
+get "/home", :rabl => "view.rabl"
+```
 
 ### Example
 
@@ -66,7 +75,7 @@ end
 
 class UserAPI < Grape::API
   # use rabl with 'hello.rabl' template
-  get '/user', :rabl => 'hello.rabl' do
+  get '/user', :rabl => 'hello' do
     @user = User.first
   end
 
@@ -83,6 +92,7 @@ object @user => :user
 
 attributes :name
 ```
+
 
 Enjoy :)
 
