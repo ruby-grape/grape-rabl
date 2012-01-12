@@ -23,13 +23,13 @@ And then execute:
 ### Require grape-rabl
 ```ruby
 # config.ru
-require 'grape-rabl'
+require 'grape/rabl'
 ```
 
 ### Setup view root directory
 ```ruby
 # config.ru
-require 'grape-rabl'
+require 'grape/rabl'
 
 use Rack::Config do |env|
   env['api.tilt.root'] = '/path/to/view/root/directory'
@@ -67,7 +67,7 @@ get "/home", :rabl => "view.rabl"
 
 ```ruby
 # config.ru
-require 'grape-rabl'
+require 'grape/rabl'
 
 use Rack::Config do |env|
   env['api.tilt.root'] = '/path/to/view/root/directory'

@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'bundler'
 Bundler.setup :default, :test
 
-require 'grape-rabl'
+require 'grape/rabl'
 require 'rspec'
 require 'rack/test'
 require 'ostruct'
