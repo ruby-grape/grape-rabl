@@ -93,6 +93,47 @@ object @user => :user
 attributes :name
 ```
 
+## Usage with rails
+
+Create grape application
+
+```ruby
+# app/api/user.rb
+class MyAPI < Grape::API
+  get '/user', :rabl => "user" do
+    @user = User.first
+  end
+end
+```
+
+```ruby
+# app/views/api/user.rabl
+object @user => :user
+```
+
+Edit your **config/application.rb** and add view path
+
+```ruby
+# application.rb
+class Application < Rails::Application
+  config.middleware.use(Rack::Config) do |env|
+    env['api.tilt.root'] = Rails.root.join "app", "views", "api"
+  end
+end
+```
+
+Mount application to rails router
+
+```ruby
+# routes.rb
+GrapeExampleRails::Application.routes.draw do
+  mount MyAPI , :at => "/api"
+end
+```
+
+## Rspec
+
+Writing Tests part at https://github.com/intridea/grape
 
 Enjoy :)
 
