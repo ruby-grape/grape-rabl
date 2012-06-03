@@ -16,9 +16,16 @@ describe Grape::Rabl do
     lambda{ get "/home" }.should raise_error("Use Rack::Config to set 'api.tilt.root' in config.ru")
   end
 
+
   context "titl root is setup"  do
     before do
       subject.before { env["api.tilt.root"] = "#{File.dirname(__FILE__)}/views" }
+    end
+
+    it "should respond with proper content-type" do
+      subject.get("/home", :rabl => "user"){}
+      get("/home")
+      last_response.headers["Content-Type"].should == "application/json"
     end
 
     it "should not raise error about root directory" do

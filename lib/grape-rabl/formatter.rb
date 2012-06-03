@@ -13,6 +13,7 @@ module Grape
         rabl(current_endpoint) do |template|
           engine = ::Tilt.new(view_path(template))
           rendered = engine.render(current_endpoint, {})
+          headers['Content-Type'] = content_types[env['api.format']]
           Rack::Response.new(rendered, status, headers).to_a
         end
       end
