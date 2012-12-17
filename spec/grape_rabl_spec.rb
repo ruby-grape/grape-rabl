@@ -1,9 +1,18 @@
 require 'spec_helper'
 
 describe Grape::Rabl do
-  subject { Class.new(Grape::API) }
-  before { subject.default_format :json }
-  def app; subject end
+  subject do
+    Class.new(Grape::API)
+  end
+
+  before do
+    subject.format :json
+    subject.formatter :json, Grape::Formatter::Rabl
+  end
+
+  def app
+    subject
+  end
 
   it 'should work without rabl template' do
     subject.get("/home") {"Hello World"}

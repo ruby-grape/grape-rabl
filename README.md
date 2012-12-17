@@ -1,17 +1,17 @@
 # Grape::Rabl
 
-Use rabl templates in grape!
+Use Rabl templates in [Grape](https://github.com/intridea/grape)!
 
 [![Build Status](https://secure.travis-ci.org/LTe/grape-rabl.png)](http://travis-ci.org/LTe/grape-rabl) [![Dependency Status](https://gemnasium.com/LTe/grape-rabl.png)](https://gemnasium.com/LTe/grape-rabl)
 
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add the `grape` and `grape-rabl` gems to Gemfile. Currently requires HEAD of Grape.
 
 ```ruby
+gem 'grape', :git => "https://github.com/intridea/grape.git"
 gem 'grape-rabl'
-gem 'grape', :git => "git://github.com/intridea/grape.git", :branch => "frontier"
 ```
 
 And then execute:
@@ -21,6 +21,7 @@ And then execute:
 ## Usage
 
 ### Require grape-rabl
+
 ```ruby
 # config.ru
 require 'grape/rabl'
@@ -36,27 +37,38 @@ use Rack::Config do |env|
 end
 ```
 
-### Create grape application
-
-To *get post put delete options* add **:rabl** options with template name.
+### Tell your API to use Grape::Formatter::Rabl
 
 ```ruby
-get "/path", :rabl => "template_name" do
-  # stuff
-  @var = "hello"
+class API < Grape::API
+  format :json
+  formatter :json, Grape::Formatter::Rabl
 end
 
-post "/path", :rabl => "template_name_diff" do
-  # stuff
-  @user = User.find_user("email@example.com")
+### Use rabl templates conditionally
+
+Add the template name to the API options.
+
+```ruby
+get "/user/:id", :rabl => "user.rabl" do
+  @user = User.fond(params[:id])
 end
 ```
 
-**You can use instance variables in templates!**
+You can use instance variables in the Rabl template.
 
-## Template name
+```ruby
+object @user => :user
+attributes :name, :email
 
-You can use "**view.rabl**" or just "**view**"
+child @project => :project do
+  attributes :name
+end
+```
+
+## You can omit .rabl
+
+The following are identical.
 
 ```ruby
 get "/home", :rabl => "view"
@@ -74,14 +86,17 @@ use Rack::Config do |env|
 end
 
 class UserAPI < Grape::API
+  format :json
+  formatter :json, Grape::Formatter::Rabl
+
   # use rabl with 'hello.rabl' template
-  get '/user', :rabl => 'hello' do
-    @user = User.first
+  get '/user/:id', :rabl => 'user' do
+    @user = User.find(params[:id])
   end
 
-  # do not use rabl, normal usage
-  get '/user2' do
-    { :some => :hash }
+  # do not use rabl, fallback to the defalt Grape JSON formatter
+  get '/users' do
+    User.all
   end
 end
 ```
@@ -100,8 +115,10 @@ Create grape application
 ```ruby
 # app/api/user.rb
 class MyAPI < Grape::API
-  get '/user', :rabl => "user" do
-    @user = User.first
+  format :json
+  formatter :json, Grape::Formatter::Rabl
+  get '/user/:id', :rabl => "user" do
+    @user = User.find(params[:id])
   end
 end
 ```
@@ -133,7 +150,7 @@ end
 
 ## Rspec
 
-Writing Tests part at https://github.com/intridea/grape
+See "Writing Tests" in https://github.com/intridea/grape.
 
 Enjoy :)
 

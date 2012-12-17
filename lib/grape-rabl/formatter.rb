@@ -1,52 +1,52 @@
-require 'tilt'
-Rabl.register!
-
 module Grape
-  module Middleware
-    class Formatter
-      alias :old_after :after
+  module Formatter
+    module Rabl
+      class << self
 
-      def after
-        status, headers, bodies = *@app_response
-        current_endpoint = env['api.endpoint']
+        attr_reader :env
+        attr_reader :endpoint
 
-        rabl(current_endpoint) do |template|
-          engine = ::Tilt.new(view_path(template))
-          rendered = engine.render(current_endpoint, {})
-          headers['Content-Type'] = content_types[env['api.format']]
-          Rack::Response.new(rendered, status, headers).to_a
+        def call(object, env)
+
+          @env = env
+          @endpoint = env['api.endpoint']
+
+          if rablable?
+            rabl do |template|
+              engine = ::Tilt.new(view_path(template))
+              engine.render endpoint, {}
+            end
+          else
+            Grape::Formatter::Json.call object, env
+          end
+
         end
-      end
 
-      private
+        private
 
-      def view_path(template)
-        if template.split(".")[-1] == "rabl"
-          File.join(env['api.tilt.root'], template)
-        else
-          File.join(env['api.tilt.root'], (template + ".rabl"))
-        end
-      end
+          def view_path(template)
+            if template.split(".")[-1] == "rabl"
+              File.join(env['api.tilt.root'], template)
+            else
+              File.join(env['api.tilt.root'], (template + ".rabl"))
+            end
+          end
 
-      def rabl(endpoint)
-        if template = rablable?(endpoint)
-          yield template
-        else
-          old_after
-        end
-      end
+          def rablable?
+            !! endpoint.options[:route_options][:rabl]
+          end
 
-      def rablable?(endpoint)
-        if template = endpoint.options[:route_options][:rabl]
-          set_view_root unless env['api.tilt.root']
-          template
-        else
-          false
-        end
-      end
-  
-      def set_view_root
-        raise "Use Rack::Config to set 'api.tilt.root' in config.ru"
+          def rabl
+            template = endpoint.options[:route_options][:rabl]
+            raise "missing rabl template" unless template
+            set_view_root unless env['api.tilt.root']
+            yield template
+          end
+
+          def set_view_root
+            raise "Use Rack::Config to set 'api.tilt.root' in config.ru"
+          end
+
       end
     end
   end
