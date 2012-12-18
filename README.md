@@ -51,7 +51,7 @@ Add the template name to the API options.
 
 ```ruby
 get "/user/:id", :rabl => "user.rabl" do
-  @user = User.fond(params[:id])
+  @user = User.find(params[:id])
 end
 ```
 
