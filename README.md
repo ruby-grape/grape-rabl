@@ -90,7 +90,7 @@ class UserAPI < Grape::API
   format :json
   formatter :json, Grape::Formatter::Rabl
 
-  # use rabl with 'hello.rabl' template
+  # use rabl with 'user.rabl' template
   get '/user/:id', :rabl => 'user' do
     @user = User.find(params[:id])
   end
@@ -103,7 +103,7 @@ end
 ```
 
 ```ruby
-# hello.rabl
+# user.rabl
 object @user => :user
 
 attributes :name
