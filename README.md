@@ -1,6 +1,6 @@
 # Grape::Rabl
 
-Use Rabl templates in [Grape](https://github.com/intridea/grape)!
+Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github.com/intridea/grape)!
 
 [![Build Status](https://secure.travis-ci.org/LTe/grape-rabl.png)](http://travis-ci.org/LTe/grape-rabl)
 
