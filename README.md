@@ -10,7 +10,7 @@ Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github
 Add the `grape` and `grape-rabl` gems to Gemfile.
 
 ```ruby
-gem 'grape', ">= 0.2.3"
+gem 'grape', "~> 0.2.3"
 gem 'grape-rabl'
 ```
 
