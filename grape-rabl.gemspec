@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["piotr.nielacny@gmail.com"]
   gem.description   = %q{Use rabl in grape}
   gem.summary       = %q{Use rabl in grape}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/LTe/grape-rabl"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
@@ -15,6 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Grape::Rabl::VERSION
 
+  gem.add_dependency "grape", "~> 0.2.3"
   gem.add_dependency "rabl"
   gem.add_dependency "tilt"
   gem.add_dependency "i18n"
