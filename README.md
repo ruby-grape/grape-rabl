@@ -1,16 +1,16 @@
 # Grape::Rabl
 
-Use Rabl templates in [Grape](https://github.com/intridea/grape)!
+Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github.com/intridea/grape)!
 
 [![Build Status](https://secure.travis-ci.org/LTe/grape-rabl.png)](http://travis-ci.org/LTe/grape-rabl) [![Dependency Status](https://gemnasium.com/LTe/grape-rabl.png)](https://gemnasium.com/LTe/grape-rabl)
 
 
 ## Installation
 
-Add the `grape` and `grape-rabl` gems to Gemfile. Currently requires HEAD of Grape.
+Add the `grape` and `grape-rabl` gems to Gemfile.
 
 ```ruby
-gem 'grape', :git => "https://github.com/intridea/grape.git"
+gem 'grape', "~> 0.2.3"
 gem 'grape-rabl'
 ```
 
