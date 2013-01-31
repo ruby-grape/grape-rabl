@@ -13,7 +13,7 @@ module Grape
 
           if rablable?
             rabl do |template|
-              engine = ::Tilt.new(view_path(template))
+              engine = ::Tilt.new(view_path(template), {format: env['api.format']})
               engine.render endpoint, {}
             end
           else
