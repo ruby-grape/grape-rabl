@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'bundler'
 Bundler.setup :default, :test
 
-require "active_support/core_ext/hash/conversions.rb"
+require 'active_support/core_ext/hash/conversions'
 require 'grape/rabl'
 require 'rspec'
 require 'rack/test'
