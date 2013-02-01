@@ -19,8 +19,9 @@ describe "Grape::Rabl partials" do
     subject.get("/home", :rabl => "project") do
       @author   = OpenStruct.new(:author => "LTe")
       @type     = OpenStruct.new(:type => "paper")
-      @project  = OpenStruct.new(:name => "First", :type => @type, :author   => @author)
+      @project  = OpenStruct.new(:name => "First", :type => @type, :author => @author)
     end
+
     get("/home")
     last_response.body.should ==
       "{\"project\":{\"name\":\"First\",\"info\":{\"type\":\"paper\"},\"author\":{\"author\":\"LTe\"}}}"
