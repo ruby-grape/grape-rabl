@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Grape::Rabl::VERSION
 
-  gem.add_dependency "grape", "~> 0.3.1"
+  gem.add_dependency "grape", "~> 0.3"
   gem.add_dependency "rabl"
   gem.add_dependency "tilt"
   gem.add_dependency "i18n"
