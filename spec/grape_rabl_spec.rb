@@ -22,7 +22,9 @@ describe Grape::Rabl do
 
   it "should raise error about root directory" do
     subject.get("/home", :rabl => true){}
-    lambda{ get "/home" }.should raise_error("Use Rack::Config to set 'api.tilt.root' in config.ru")
+    get "/home"
+    last_response.status.should == 500
+    last_response.body.should include "Use Rack::Config to set 'api.tilt.root' in config.ru"
   end
 
 
@@ -39,7 +41,9 @@ describe Grape::Rabl do
 
     it "should not raise error about root directory" do
       subject.get("/home", :rabl => true){}
-      lambda{ get "/home" }.should_not raise_error("Use Rack::Config to set 'api.tilt.root' in config.ru")
+      get "/home"
+      last_response.status.should == 500
+      last_response.body.should_not include "Use Rack::Config to set 'api.tilt.root' in config.ru"
     end
 
     ["user", "user.rabl"].each do |rabl_option|
