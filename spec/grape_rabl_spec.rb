@@ -33,6 +33,31 @@ describe Grape::Rabl do
       subject.before { env["api.tilt.root"] = "#{File.dirname(__FILE__)}/views" }
     end
 
+    describe "#render" do
+      before do
+        subject.get("/home", :rabl => "user") do
+          @user = OpenStruct.new(:name => "LTe")
+          render :rabl => "admin"
+        end
+
+        subject.get("/about", :rabl => "user") do
+          @user = OpenStruct.new(:name => "LTe")
+        end
+      end
+
+      it "renders template passed as argument to reneder method" do
+        get("/home")
+        last_response.body.should == '{"admin":{"name":"LTe"}}'
+      end
+
+      it "does not save rabl options after called #render method" do
+        get("/home")
+        get("/about")
+        last_response.body.should == '{"user":{"name":"LTe","project":null}}'
+      end
+    end
+
+
     it "should respond with proper content-type" do
       subject.get("/home", :rabl => "user"){}
       get("/home")
