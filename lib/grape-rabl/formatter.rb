@@ -1,3 +1,5 @@
+require 'json'
+
 module Grape
   module Formatter
     module Rabl
