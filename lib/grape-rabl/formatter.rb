@@ -19,7 +19,7 @@ module Grape
               engine.render endpoint, {}
             end
           else
-            Grape::Formatter::Json.call object, env
+            object
           end
 
         end

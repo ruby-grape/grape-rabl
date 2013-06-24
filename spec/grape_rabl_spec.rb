@@ -15,9 +15,9 @@ describe Grape::Rabl do
   end
 
   it 'should work without rabl template' do
-    subject.get("/home") do "Hello World" end
+    subject.get("/home") {{"message" => "Hello World"}.to_json}
     get "/home"
-    last_response.body.should == "Hello World"
+    JSON.parse(last_response.body).should eq({"message" => "Hello World"})
   end
 
   it "should raise error about root directory" do
