@@ -1,3 +1,5 @@
+require 'json'
+
 module Grape
   module Formatter
     module Rabl
@@ -17,7 +19,7 @@ module Grape
               engine.render endpoint, {}
             end
           else
-            Grape::Formatter::Json.call object, env
+            object
           end
 
         end
