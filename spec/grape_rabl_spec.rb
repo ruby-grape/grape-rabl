@@ -8,6 +8,7 @@ describe Grape::Rabl do
   before do
     subject.format :json
     subject.formatter :json, Grape::Formatter::Rabl
+    subject.helpers MyHelper
   end
 
   def app
@@ -29,10 +30,17 @@ describe Grape::Rabl do
     end
   end
 
-
   context "titl root is setup"  do
     before do
       subject.before { env["api.tilt.root"] = "#{File.dirname(__FILE__)}/views" }
+    end
+
+    describe "helpers" do
+      it "should execute helper" do
+        subject.get("/home", :rabl => "helper") { @user = OpenStruct.new }
+        get "/home"
+        last_response.body.should == "{\"user\":{\"helper\":\"my_helper\"}}"
+      end
     end
 
     describe "#render" do
