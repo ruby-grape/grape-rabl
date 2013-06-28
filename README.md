@@ -2,8 +2,11 @@
 
 Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github.com/intridea/grape)!
 
-[![Build Status](https://secure.travis-ci.org/LTe/grape-rabl.png)](http://travis-ci.org/LTe/grape-rabl) [![Dependency Status](https://gemnasium.com/LTe/grape-rabl.png)](https://gemnasium.com/LTe/grape-rabl)
-
+[![Build Status](https://secure.travis-ci.org/LTe/grape-rabl.png)](http://travis-ci.org/LTe/grape-rabl)
+[![Dependency Status](https://gemnasium.com/LTe/grape-rabl.png)](https://gemnasium.com/LTe/grape-rabl)
+[![Code Climate](https://codeclimate.com/github/LTe/grape-rabl.png)](https://codeclimate.com/github/LTe/grape-rabl)
+[![Coverage Status](https://coveralls.io/repos/LTe/grape-rabl/badge.png?branch=master)](https://coveralls.io/r/LTe/grape-rabl?branch=master)
+[![Gem Version](https://badge.fury.io/rb/grape-rabl.png)](http://badge.fury.io/rb/grape-rabl)
 
 ## Installation
 
