@@ -17,14 +17,16 @@ describe Grape::Rabl do
   it 'should work without rabl template' do
     subject.get("/home") {"Hello World"}
     get "/home"
-    last_response.body.should == "Hello World"
+    last_response.body.should == "\"Hello World\""
   end
 
   it "should raise error about root directory" do
-    subject.get("/home", :rabl => true){}
-    get "/home"
-    last_response.status.should == 500
-    last_response.body.should include "Use Rack::Config to set 'api.tilt.root' in config.ru"
+    begin
+      subject.get("/home", :rabl => true){}
+      get "/home"
+    rescue Exception => e
+      e.message.should include "Use Rack::Config to set 'api.tilt.root' in config.ru"
+    end
   end
 
 
@@ -65,9 +67,9 @@ describe Grape::Rabl do
     end
 
     it "should not raise error about root directory" do
-      subject.get("/home", :rabl => true){}
+      subject.get("/home", :rabl => "user"){}
       get "/home"
-      last_response.status.should == 500
+      last_response.status.should == 200
       last_response.body.should_not include "Use Rack::Config to set 'api.tilt.root' in config.ru"
     end
 
