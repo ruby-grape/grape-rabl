@@ -152,9 +152,9 @@ GrapeExampleRails::Application.routes.draw do
 end
 ```
 
-## Rspec
+## Specs
 
-See "Writing Tests" in https://github.com/intridea/grape.
+See ["Writing Tests"](https://github.com/intridea/grape#writing-tests) in [https://github.com/intridea/grape](grape) README.
 
 Enjoy :)
 
