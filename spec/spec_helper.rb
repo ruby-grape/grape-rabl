@@ -4,6 +4,9 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'bundler'
 Bundler.setup :default, :test
 
+require 'coveralls'
+Coveralls.wear!
+
 require 'active_support/core_ext/hash/conversions'
 require 'grape/rabl'
 require 'rspec'

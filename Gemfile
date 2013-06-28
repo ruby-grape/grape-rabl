@@ -7,4 +7,5 @@ group :test do
   gem "rspec", "~> 2.12.0"
   gem "rack-test"
   gem "rake"
+  gem "coveralls", require: false
 end
