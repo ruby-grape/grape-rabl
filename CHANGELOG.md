@@ -1,6 +1,6 @@
-#### Next Release
+#### v0.2.2
 
-* Relaxed dependency on a specific version of Grape [#20](https://github.com/LTe/grape-rabl/pull/20) [@cheef](https://github.com/cheef)
+* Relaxed dependency on a specific version of Grape [#20](https://github.com/LTe/grape-rabl/pull/20) [@cheef](https://github.com/cheef) [view commit](https://github.com/LTe/grape-rabl/commit/56da0a5bcecb16501cdd93ac25f3b6ca6d7a86f0)
 
 #### v0.2.1
 
