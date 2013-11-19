@@ -1,3 +1,7 @@
+#### Next Release
+
+* Relaxed dependency on a specific version of Grape [#20](https://github.com/LTe/grape-rabl/pull/20) [@cheef](https://github.com/cheef)
+
 #### v0.2.1
 
 * Fix: render template according to request format. [#11](https://github.com/LTe/grape-rabl/pull/11) [@alovak](https://github.com/alovak) [view commit](http://github.com/LTe/grape-rabl/commit/f9658cf7a3026122afbb77e0da613731a5828338)
