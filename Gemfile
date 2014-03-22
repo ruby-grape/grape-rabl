@@ -12,4 +12,8 @@ group :test do
   gem "rack-test"
   gem "rake"
   gem "coveralls", require: false
+
+  platforms :rbx do
+    gem "iconv"
+  end
 end

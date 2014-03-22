@@ -1,8 +1,18 @@
+before_install:
+  - gem install bundler
+  - bundle --version
+
 rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.0
   - ruby-head
+  - jruby-19mode
+  - jruby-head
+  - rbx
+
 matrix:
   allow_failures:
-    - rvm: ruby-head
+    - rvm: rbx
+    - rvm: jruby-19mode
+    - rvm: jruby-head
