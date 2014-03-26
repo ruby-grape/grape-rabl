@@ -70,6 +70,21 @@ child @project => :project do
 end
 ```
 
+### Use rabl layout
+
+first looks for a layout file in `#{env['api.tilt.root']}/layouts/application.rabl`
+You can override the default layout conventions:
+
+```ruby
+# config.ru
+require 'grape/rabl'
+
+use Rack::Config do |env|
+  env['api.tilt.root'] = '/path/to/view/root/directory'
+  env['api.tilt.layout'] = 'layouts/another'
+end
+```
+
 ## You can omit .rabl
 
 The following are identical.
