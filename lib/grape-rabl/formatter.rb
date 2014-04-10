@@ -15,8 +15,13 @@ module Grape
 
           if rablable?
             rabl do |template|
-              engine = ::Tilt.new(view_path(template), {format: env['api.format'], view_path: env['api.tilt.root']})
-              engine.render endpoint, {}
+              engine = ::Tilt.new(view_path(template), tilt_options)
+              output = engine.render endpoint, {}
+              if !layout_template.nil?
+                layout_template.render(endpoint) { output }
+              else
+                output
+              end
             end
           else
             Grape::Formatter::Json.call object, env
@@ -49,6 +54,18 @@ module Grape
             raise "Use Rack::Config to set 'api.tilt.root' in config.ru"
           end
 
+          def tilt_options
+            {format: env['api.format'], view_path: env['api.tilt.root']}
+          end
+
+          def layout_template
+            layout_path = view_path(env['api.tilt.layout'] || 'layouts/application')
+            if File.exists?(layout_path)
+              ::Tilt.new(layout_path, tilt_options)
+            else
+              nil
+            end
+          end
       end
     end
   end
