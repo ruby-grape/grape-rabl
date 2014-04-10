@@ -1,0 +1,34 @@
+AllCops:
+  Exclude:
+    - vendor/**
+    - .bundle
+
+LineLength:
+  Enabled: false
+
+MethodLength:
+  Enabled: false
+
+ClassLength:
+  Enabled: false
+
+Documentation:
+  # don't require classes to be documented
+  Enabled: false
+
+Encoding:
+  # no need to always specify encoding
+  Enabled: false
+
+CollectionMethods:
+  # don't prefer map to collect, recuce to inject
+  Enabled: false
+
+RescueException:
+  Enabled: false
+
+DoubleNegation:
+  Enabled: false
+
+FileName:
+  Enabled: false

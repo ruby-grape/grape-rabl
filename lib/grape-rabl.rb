@@ -1,7 +1,7 @@
-require "rabl"
-require "grape"
-require "hashie/hash"
-require "grape-rabl/tilt"
-require "grape-rabl/version"
-require "grape-rabl/formatter"
-require "grape-rabl/render"
+require 'rabl'
+require 'grape'
+require 'hashie/hash'
+require 'grape-rabl/tilt'
+require 'grape-rabl/version'
+require 'grape-rabl/formatter'
+require 'grape-rabl/render'
