@@ -33,9 +33,9 @@ module Grape
 
           def view_path(template)
             if template.split(".")[-1] == "rabl"
-              File.join(env['api.tilt.root'], template)
+              File.join(env['api.tilt.root'], env['api.version'].to_s, template)
             else
-              File.join(env['api.tilt.root'], (template + ".rabl"))
+              File.join(env['api.tilt.root'], env['api.version'].to_s, (template + ".rabl"))
             end
           end
 
