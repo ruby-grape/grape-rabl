@@ -1,3 +1,9 @@
+#### Next Release
+
+* Enable using a layout template in Rabl [@koko1000ban](https://github.com/koko1000ban) [view commit](https://github.com/LTe/grape-rabl/commit/1fbfbd58c3fb320be1b52b3247fda2a23cacc9fc)
+* Implemented Rubocop, Ruby style linter [@dblock](https://github.com/dblock) [view commit](https://github.com/LTe/grape-rabl/commit/1211056de22a5989c063d57b7b37ebb1f1977e83)
+* Removed JRuby support [@dblock](https://github.com/dblock) [view commit](https://github.com/LTe/grape-rabl/commit/59905c1b09670fe08501e09bad4ec8714839f2d3)
+
 #### v0.2.2
 
 * Relaxed dependency on a specific version of Grape [#20](https://github.com/LTe/grape-rabl/pull/20) [@cheef](https://github.com/cheef) [view commit](https://github.com/LTe/grape-rabl/commit/56da0a5bcecb16501cdd93ac25f3b6ca6d7a86f0)
