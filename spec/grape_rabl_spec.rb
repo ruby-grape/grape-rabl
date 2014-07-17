@@ -50,14 +50,34 @@ describe Grape::Rabl do
           render rabl: 'admin'
         end
 
+        subject.get('/home-detail', rabl: 'user') do
+          @user = OpenStruct.new(name: 'LTe')
+          render rabl: 'admin', locals: { details: 'amazing detail' }
+        end
+
         subject.get('/about', rabl: 'user') do
           @user = OpenStruct.new(name: 'LTe')
         end
+
+        subject.get('/about-detail', rabl: 'user') do
+          @user = OpenStruct.new(name: 'LTe')
+          render locals: { details: 'just a user' }
+        end
       end
 
-      it 'renders template passed as argument to reneder method' do
+      it 'renders template passed as argument to render method' do
         get('/home')
         last_response.body.should == '{"admin":{"name":"LTe"}}'
+      end
+
+      it 'renders template passed as argument to render method with locals' do
+        get('/home-detail')
+        last_response.body.should == '{"admin":{"name":"LTe","details":"amazing detail"}}'
+      end
+
+      it 'renders with locals without overriding template' do
+        get('/about-detail')
+        last_response.body.should == '{"user":{"name":"LTe","details":"just a user","project":null}}'
       end
 
       it 'does not save rabl options after called #render method' do

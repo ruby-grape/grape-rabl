@@ -112,6 +112,11 @@ class UserAPI < Grape::API
   # use rabl with 'user.rabl' template
   get '/user/:id', :rabl => 'user' do
     @user = User.find(params[:id])
+
+    if @user.admin?
+      # overwrite the template (and pass locals) with the #render method
+      render rabl: 'admin', locals: { details: 'this user is a admin' }
+    end
   end
 
   # do not use rabl, fallback to the defalt Grape JSON formatter
