@@ -3,7 +3,7 @@
 * Enable using a layout template in Rabl [@koko1000ban](https://github.com/koko1000ban) [view commit](https://github.com/LTe/grape-rabl/commit/1fbfbd58c3fb320be1b52b3247fda2a23cacc9fc)
 * Implemented Rubocop, Ruby style linter [@dblock](https://github.com/dblock) [view commit](https://github.com/LTe/grape-rabl/commit/1211056de22a5989c063d57b7b37ebb1f1977e83)
 * Removed JRuby support [@dblock](https://github.com/dblock) [view commit](https://github.com/LTe/grape-rabl/commit/59905c1b09670fe08501e09bad4ec8714839f2d3)
-* Enable using locals with #render [@hobofan](https://github.com/hobofan)
+* Enable using locals with #render [@hobofan](https://github.com/hobofan) [view commit](https://github.com/LTe/grape-rabl/commit/6c24130f6a670e52e6119c56904b8ed2e6f60b39)
 
 #### v0.2.2
 
