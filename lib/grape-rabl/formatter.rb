@@ -14,7 +14,7 @@ module Grape
           if rablable?
             rabl do |template|
               engine = ::Tilt.new(view_path(template), tilt_options)
-              output = engine.render endpoint, {}
+              output = engine.render endpoint, locals
               if layout_template
                 layout_template.render(endpoint) { output }
               else
@@ -45,6 +45,10 @@ module Grape
           fail 'missing rabl template' unless template
           set_view_root unless env['api.tilt.root']
           yield template
+        end
+
+        def locals
+          endpoint.options[:route_options][:rabl_locals] || {}
         end
 
         def set_view_root
