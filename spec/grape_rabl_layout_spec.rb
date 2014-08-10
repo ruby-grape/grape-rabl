@@ -49,4 +49,43 @@ describe 'Grape::Rabl layout' do
         %Q({"result":{"user":{"name":"LTe","project":{"name":"First"}}}})
     end
   end
+  
+  context 'layout cache' do
+    before do
+      @layout = "#{File.dirname(__FILE__)}/views/layout_test/layouts/application_cached.rabl"
+      FileUtils.cp("#{File.dirname(__FILE__)}/views/layout_test/layouts/application.rabl", @layout)
+      subject.before { env['api.tilt.layout'] = 'layouts/application_cached' }
+      subject.get('/home', rabl: 'user') do
+        @user = OpenStruct.new(name: 'LTe', email: 'email@example.com')
+        @project = OpenStruct.new(name: 'First')
+        @status = 200
+      end
+    end
+    
+    after do
+      Grape::Rabl.reset_configuration!
+      FileUtils.rm(@layout)
+    end
+
+    it 'should serve from cache if cache_template_loading' do
+      Grape::Rabl.configure do |config|
+        config.cache_template_loading = true
+      end
+      get '/home'
+      old_response = last_response.body
+      open(@layout, 'a') { |f| f << 'node(:test) { "test" }' }
+      get '/home'
+      new_response = last_response.body
+      old_response.should == new_response
+    end
+
+    it 'should serve new template if cache_template_loading' do
+      get '/home'
+      old_response = last_response.body
+      open(@layout, 'a') { |f| f << 'node(:test) { "test" }' }
+      get '/home'
+      new_response = last_response.body
+      old_response.should_not == new_response
+    end
+  end
 end

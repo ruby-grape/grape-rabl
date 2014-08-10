@@ -13,7 +13,7 @@ module Grape
 
           if rablable?
             rabl do |template|
-              engine = ::Tilt.new(view_path(template), tilt_options)
+              engine = tilt_template(template)
               output = engine.render endpoint, locals
               if layout_template
                 layout_template.render(endpoint) { output }
@@ -55,16 +55,28 @@ module Grape
           fail "Use Rack::Config to set 'api.tilt.root' in config.ru"
         end
 
+        def tilt_template(template)
+          if Grape::Rabl.configuration.cache_template_loading
+            tilt_cache.fetch(template) { ::Tilt.new(view_path(template), tilt_options) }
+          else
+            ::Tilt.new(view_path(template), tilt_options)
+          end
+        end
+
+        def tilt_cache
+          @tilt_cache ||= ::Tilt::Cache.new
+        end
+
         def tilt_options
           { format: env['api.format'], view_path: env['api.tilt.root'] }
         end
 
         def layout_template
           layout_path = view_path(env['api.tilt.layout'] || 'layouts/application')
-          if File.exist?(layout_path)
-            ::Tilt.new(layout_path, tilt_options)
+          if Grape::Rabl.configuration.cache_template_loading
+            tilt_cache.fetch(layout_path) { ::Tilt.new(layout_path, tilt_options) if File.exist?(layout_path) }
           else
-            nil
+            ::Tilt.new(layout_path, tilt_options) if File.exist?(layout_path)
           end
         end
       end

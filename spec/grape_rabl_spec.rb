@@ -111,5 +111,42 @@ describe Grape::Rabl do
         last_response.body.should == '{"user":{"name":"LTe","email":"email@example.com","project":{"name":"First"}}}'
       end
     end
+
+    describe 'template cache' do
+      before do
+        @template = "#{File.dirname(__FILE__)}/views/user_cached.rabl"
+        FileUtils.cp("#{File.dirname(__FILE__)}/views/user.rabl", @template)
+        subject.get('/home', rabl: 'user_cached') do
+          @user = OpenStruct.new(name: 'LTe', email: 'email@example.com')
+          @project = OpenStruct.new(name: 'First')
+        end
+      end
+      
+      after do
+        Grape::Rabl.reset_configuration!
+        FileUtils.rm(@template)
+      end
+
+      it 'should serve from cache if cache_template_loading' do
+        Grape::Rabl.configure do |config|
+          config.cache_template_loading = true
+        end
+        get '/home'
+        old_response = last_response.body
+        open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
+        get '/home'
+        new_response = last_response.body
+        old_response.should == new_response
+      end
+
+      it 'should serve new template if cache_template_loading' do
+        get '/home'
+        old_response = last_response.body
+        open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
+        get '/home'
+        new_response = last_response.body
+        old_response.should_not == new_response
+      end
+    end
   end
 end
