@@ -4,6 +4,7 @@
 * Implemented Rubocop, Ruby style linter [@dblock](https://github.com/dblock) [view commit](https://github.com/LTe/grape-rabl/commit/1211056de22a5989c063d57b7b37ebb1f1977e83)
 * Removed JRuby support [@dblock](https://github.com/dblock) [view commit](https://github.com/LTe/grape-rabl/commit/59905c1b09670fe08501e09bad4ec8714839f2d3)
 * Enable using locals with #render [@hobofan](https://github.com/hobofan) [view commit](https://github.com/LTe/grape-rabl/commit/6c24130f6a670e52e6119c56904b8ed2e6f60b39)
+* Enable support for template caching. [#28](https://github.com/LTe/grape-rabl/pull/28) [@kushkella](https://github.com/kushkella) [view commit](https://github.com/LTe/grape-rabl/commit/79b1e58d767c6286b510af669e718310c0ad25c2)
 
 #### v0.2.2
 

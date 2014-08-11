@@ -49,22 +49,23 @@ describe 'Grape::Rabl layout' do
         %Q({"result":{"user":{"name":"LTe","project":{"name":"First"}}}})
     end
   end
-  
+
   context 'layout cache' do
     before do
-      @layout = "#{File.dirname(__FILE__)}/views/layout_test/layouts/application_cached.rabl"
-      FileUtils.cp("#{File.dirname(__FILE__)}/views/layout_test/layouts/application.rabl", @layout)
-      subject.before { env['api.tilt.layout'] = 'layouts/application_cached' }
+      @views_dir = FileUtils.mkdir_p("#{File.expand_path("..", File.dirname(__FILE__))}/tmp")[0]
+      @layout = "#{@views_dir}/layouts/application.rabl"
+      FileUtils.cp_r("#{File.dirname(__FILE__)}/views/layout_test/.", @views_dir)
+      subject.before { env['api.tilt.root'] = "#{File.expand_path("..", File.dirname(__FILE__))}/tmp" }
       subject.get('/home', rabl: 'user') do
         @user = OpenStruct.new(name: 'LTe', email: 'email@example.com')
         @project = OpenStruct.new(name: 'First')
         @status = 200
       end
     end
-    
+
     after do
       Grape::Rabl.reset_configuration!
-      FileUtils.rm(@layout)
+      FileUtils.rm_f(@views_dir)
     end
 
     it 'should serve from cache if cache_template_loading' do
@@ -72,18 +73,22 @@ describe 'Grape::Rabl layout' do
         config.cache_template_loading = true
       end
       get '/home'
+      last_response.status.should be == 200
       old_response = last_response.body
       open(@layout, 'a') { |f| f << 'node(:test) { "test" }' }
       get '/home'
+      last_response.status.should be == 200
       new_response = last_response.body
       old_response.should == new_response
     end
 
     it 'should serve new template if cache_template_loading' do
       get '/home'
+      last_response.status.should be == 200
       old_response = last_response.body
       open(@layout, 'a') { |f| f << 'node(:test) { "test" }' }
       get '/home'
+      last_response.status.should be == 200
       new_response = last_response.body
       old_response.should_not == new_response
     end

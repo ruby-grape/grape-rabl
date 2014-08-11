@@ -86,6 +86,21 @@ use Rack::Config do |env|
 end
 ```
 
+### Enable template caching
+
+Gape-rabl allows for template caching after templates are loaded initially.
+
+You can enable template caching:
+
+```ruby
+# config.ru
+require 'grape/rabl'
+
+Grape::Rabl.configure do |config|
+  config.cache_template_loading = true # default: false
+end
+```
+
 ## You can omit .rabl
 
 The following are identical.

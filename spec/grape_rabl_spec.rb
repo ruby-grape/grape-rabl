@@ -114,17 +114,19 @@ describe Grape::Rabl do
 
     describe 'template cache' do
       before do
-        @template = "#{File.dirname(__FILE__)}/views/user_cached.rabl"
+        @views_dir = FileUtils.mkdir_p("#{File.expand_path("..", File.dirname(__FILE__))}/tmp")[0]
+        @template = "#{@views_dir}/user.rabl"
         FileUtils.cp("#{File.dirname(__FILE__)}/views/user.rabl", @template)
-        subject.get('/home', rabl: 'user_cached') do
+        subject.before { env['api.tilt.root'] = "#{File.expand_path("..", File.dirname(__FILE__))}/tmp" }
+        subject.get('/home', rabl: 'user') do
           @user = OpenStruct.new(name: 'LTe', email: 'email@example.com')
           @project = OpenStruct.new(name: 'First')
         end
       end
-      
+
       after do
         Grape::Rabl.reset_configuration!
-        FileUtils.rm(@template)
+        FileUtils.rm_r(@views_dir)
       end
 
       it 'should serve from cache if cache_template_loading' do
@@ -132,18 +134,22 @@ describe Grape::Rabl do
           config.cache_template_loading = true
         end
         get '/home'
+        last_response.status.should be == 200
         old_response = last_response.body
         open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
         get '/home'
+        last_response.status.should be == 200
         new_response = last_response.body
         old_response.should == new_response
       end
 
       it 'should serve new template if cache_template_loading' do
         get '/home'
+        last_response.status.should be == 200
         old_response = last_response.body
         open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
         get '/home'
+        last_response.status.should be == 200
         new_response = last_response.body
         old_response.should_not == new_response
       end
