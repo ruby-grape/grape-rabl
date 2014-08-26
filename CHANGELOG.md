@@ -1,4 +1,4 @@
-#### Next Release
+#### v0.3.0
 
 * Enable using a layout template in Rabl [@koko1000ban](https://github.com/koko1000ban) [view commit](https://github.com/LTe/grape-rabl/commit/1fbfbd58c3fb320be1b52b3247fda2a23cacc9fc)
 * Implemented Rubocop, Ruby style linter [@dblock](https://github.com/dblock) [view commit](https://github.com/LTe/grape-rabl/commit/1211056de22a5989c063d57b7b37ebb1f1977e83)
