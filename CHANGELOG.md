@@ -1,14 +1,18 @@
+#### Next
+
+* Your contribution here.
+
 #### v0.3.0
 
-* Enable using a layout template in Rabl [@koko1000ban](https://github.com/koko1000ban) [view commit](https://github.com/LTe/grape-rabl/commit/1fbfbd58c3fb320be1b52b3247fda2a23cacc9fc)
-* Implemented Rubocop, Ruby style linter [@dblock](https://github.com/dblock) [view commit](https://github.com/LTe/grape-rabl/commit/1211056de22a5989c063d57b7b37ebb1f1977e83)
-* Removed JRuby support [@dblock](https://github.com/dblock) [view commit](https://github.com/LTe/grape-rabl/commit/59905c1b09670fe08501e09bad4ec8714839f2d3)
-* Enable using locals with #render [@hobofan](https://github.com/hobofan) [view commit](https://github.com/LTe/grape-rabl/commit/6c24130f6a670e52e6119c56904b8ed2e6f60b39)
+* Enable using a layout template in Rabl. [@koko1000ban](https://github.com/koko1000ban) [view commit](https://github.com/LTe/grape-rabl/commit/1fbfbd58c3fb320be1b52b3247fda2a23cacc9fc)
+* Implemented Rubocop, Ruby style linter. [@dblock](https://github.com/dblock) [view commit](https://github.com/LTe/grape-rabl/commit/1211056de22a5989c063d57b7b37ebb1f1977e83)
+* Removed JRuby support. [@dblock](https://github.com/dblock) [view commit](https://github.com/LTe/grape-rabl/commit/59905c1b09670fe08501e09bad4ec8714839f2d3)
+* Enable using locals with #render. [@hobofan](https://github.com/hobofan) [view commit](https://github.com/LTe/grape-rabl/commit/6c24130f6a670e52e6119c56904b8ed2e6f60b39)
 * Enable support for template caching. [#28](https://github.com/LTe/grape-rabl/pull/28) [@kushkella](https://github.com/kushkella) [view commit](https://github.com/LTe/grape-rabl/commit/79b1e58d767c6286b510af669e718310c0ad25c2)
 
 #### v0.2.2
 
-* Relaxed dependency on a specific version of Grape [#20](https://github.com/LTe/grape-rabl/pull/20) [@cheef](https://github.com/cheef) [view commit](https://github.com/LTe/grape-rabl/commit/56da0a5bcecb16501cdd93ac25f3b6ca6d7a86f0)
+* Relaxed dependency on a specific version of Grape. [#20](https://github.com/LTe/grape-rabl/pull/20) [@cheef](https://github.com/cheef) [view commit](https://github.com/LTe/grape-rabl/commit/56da0a5bcecb16501cdd93ac25f3b6ca6d7a86f0)
 
 #### v0.2.1
 
@@ -16,7 +20,7 @@
 
 #### v0.2.0
 
-* Allow to use partials in grape. [#10](https://github.com/LTe/grape-rabl/pull/10) [@ichilton](https://github.com/ichilton) [view commit](http://github.com/LTe/grape-rabl/commit/72c96c5acc9d8000f56ee8400ae0229053fb3e7e)
+* Allow to use partials in Grape. [#10](https://github.com/LTe/grape-rabl/pull/10) [@ichilton](https://github.com/ichilton) [view commit](http://github.com/LTe/grape-rabl/commit/72c96c5acc9d8000f56ee8400ae0229053fb3e7e)
 * Stick to gem conventions. [@LTe](https://github.com/lte) [view commit](http://github.com/LTe/grape-rabl/commit/aabd0e2ad72f56a75427eebcc586deed57cf5f58)
 * Update for Grape 0.3 compatibility. [@alovak](https://github.com/alovak) [view commit](http://github.com/LTe/grape-rabl/commit/78bfdceffbfe90b700868ff1e79ab87e8baded81)
 * Format fix. [@LTe](https://github.com/lte) [view commit](http://github.com/LTe/grape-rabl/commit/13749cc18d332dcd0050bb32980cc233868a7992)
