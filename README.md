@@ -124,14 +124,21 @@ class UserAPI < Grape::API
   format :json
   formatter :json, Grape::Formatter::Rabl
 
-  # use rabl with 'user.rabl' template
-  get '/user/:id', :rabl => 'user' do
+  get '/user/:id' do
     @user = User.find(params[:id])
 
+    # use rabl with 'user.rabl' or 'admin.rabl' template
     if @user.admin?
-      # overwrite the template (and pass locals) with the #render method
-      render rabl: 'admin', locals: { details: 'this user is a admin' }
+      # pass locals with the #render method
+      render rabl: 'admin', locals: { details: 'this user is an admin' }
+    else
+      render rabl: 'user'
     end
+  end
+
+  # use rabl with 'user_history.rabl' template
+  get '/user/:id/history', :rabl => 'user_history' do
+    @history = User.find(params[:id]).history
   end
 
   # do not use rabl, fallback to the defalt Grape JSON formatter
