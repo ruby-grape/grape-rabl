@@ -31,6 +31,8 @@ describe Grape::Rabl do
   end
 
   context 'titl root is setup'  do
+    let(:parsed_response) { JSON.parse(last_response.body) }
+
     before do
       subject.before { env['api.tilt.root'] = "#{File.dirname(__FILE__)}/views" }
     end
@@ -39,7 +41,7 @@ describe Grape::Rabl do
       it 'should execute helper' do
         subject.get('/home', rabl: 'helper') { @user = OpenStruct.new }
         get '/home'
-        last_response.body.should == "{\"user\":{\"helper\":\"my_helper\"}}"
+        parsed_response.should == JSON.parse("{\"user\":{\"helper\":\"my_helper\"}}")
       end
     end
 
@@ -72,18 +74,18 @@ describe Grape::Rabl do
 
       it 'renders template passed as argument to render method with locals' do
         get('/home-detail')
-        last_response.body.should == '{"admin":{"name":"LTe","details":"amazing detail"}}'
+        parsed_response.should == JSON.parse('{"admin":{"name":"LTe","details":"amazing detail"}}')
       end
 
       it 'renders with locals without overriding template' do
         get('/about-detail')
-        last_response.body.should == '{"user":{"name":"LTe","details":"just a user","project":null}}'
+        parsed_response.should == JSON.parse('{"user":{"name":"LTe","details":"just a user","project":null}}')
       end
 
       it 'does not save rabl options after called #render method' do
         get('/home')
         get('/about')
-        last_response.body.should == '{"user":{"name":"LTe","project":null}}'
+        parsed_response.should == JSON.parse('{"user":{"name":"LTe","project":null}}')
       end
     end
 
@@ -108,7 +110,7 @@ describe Grape::Rabl do
         end
 
         get '/home'
-        last_response.body.should == '{"user":{"name":"LTe","email":"email@example.com","project":{"name":"First"}}}'
+        parsed_response.should == JSON.parse('{"user":{"name":"LTe","email":"email@example.com","project":{"name":"First"}}}')
       end
     end
 

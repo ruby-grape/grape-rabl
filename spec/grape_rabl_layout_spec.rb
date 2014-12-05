@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe 'Grape::Rabl layout' do
+  let(:parsed_response) { JSON.parse(last_response.body) }
+
   subject do
     Class.new(Grape::API)
   end
@@ -26,8 +28,8 @@ describe 'Grape::Rabl layout' do
       end
 
       get('/about')
-      last_response.body.should ==
-        %Q({"status":200,"result":{"user":{"name":"LTe","project":{"name":"First"}}}})
+      parsed_response.should ==
+        JSON.parse(%Q({"status":200,"result":{"user":{"name":"LTe","project":{"name":"First"}}}}))
     end
   end
 
@@ -45,8 +47,8 @@ describe 'Grape::Rabl layout' do
 
       get('/about')
       puts last_response.body
-      last_response.body.should ==
-        %Q({"result":{"user":{"name":"LTe","project":{"name":"First"}}}})
+      parsed_response.should ==
+        JSON.parse(%Q({"result":{"user":{"name":"LTe","project":{"name":"First"}}}}))
     end
   end
 

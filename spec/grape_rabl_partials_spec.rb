@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe 'Grape::Rabl partials' do
+  let(:parsed_response) { JSON.parse(last_response.body) }
+
   subject do
     Class.new(Grape::API)
   end
@@ -23,7 +25,7 @@ describe 'Grape::Rabl partials' do
     end
 
     get('/home')
-    last_response.body.should ==
-      "{\"project\":{\"name\":\"First\",\"info\":{\"type\":\"paper\"},\"author\":{\"author\":\"LTe\"}}}"
+    parsed_response.should ==
+      JSON.parse("{\"project\":{\"name\":\"First\",\"info\":{\"type\":\"paper\"},\"author\":{\"author\":\"LTe\"}}}")
   end
 end

@@ -12,6 +12,7 @@ group :test do
   gem "rack-test"
   gem "rake"
   gem "coveralls", require: false
+  gem "rabl", :github => "nesquena/rabl"
 
   platforms :rbx do
     gem "iconv"
