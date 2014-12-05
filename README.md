@@ -136,6 +136,14 @@ class UserAPI < Grape::API
     end
   end
 
+  get '/admin/:id', :rabl => 'admin' do
+    @user = User.find(params[:id])
+
+    # use rabl with 'super_admin.rabl'
+    render rabl: 'super_admin' if @user.super_admin?
+    # when render method has not been used use template from endpoint definition
+  end
+
   # use rabl with 'user_history.rabl' template
   get '/user/:id/history', :rabl => 'user_history' do
     @history = User.find(params[:id]).history

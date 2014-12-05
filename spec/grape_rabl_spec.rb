@@ -52,6 +52,12 @@ describe Grape::Rabl do
           render rabl: 'admin'
         end
 
+        subject.get('/admin/:id', rabl: 'user') do
+          @user = OpenStruct.new(name: 'LTe')
+
+          render rabl: 'admin' if params[:id] == '1'
+        end
+
         subject.get('/home-detail', rabl: 'user') do
           @user = OpenStruct.new(name: 'LTe')
           render rabl: 'admin', locals: { details: 'amazing detail' }
@@ -69,7 +75,17 @@ describe Grape::Rabl do
 
       it 'renders template passed as argument to render method' do
         get('/home')
-        last_response.body.should == '{"admin":{"name":"LTe"}}'
+        parsed_response.should == JSON.parse('{"admin":{"name":"LTe"}}')
+      end
+
+      it 'renders admin template' do
+        get('/admin/1')
+        parsed_response.should == JSON.parse('{"admin":{"name":"LTe"}}')
+      end
+
+      it 'renders user template' do
+        get('/admin/2')
+        parsed_response.should == JSON.parse('{"user":{"name":"LTe","project":null}}')
       end
 
       it 'renders template passed as argument to render method with locals' do
