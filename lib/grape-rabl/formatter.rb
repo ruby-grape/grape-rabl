@@ -29,7 +29,8 @@ module Grape
             end
           end
         else
-          Grape::Formatter::Json.call object, env
+          fallback_formatter = Grape::Formatter::Base.formatter_for(env['api.format']) || Grape::Formatter::Json
+          fallback_formatter.call object, env
         end
       end
 
