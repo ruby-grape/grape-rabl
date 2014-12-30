@@ -2,11 +2,11 @@
 
 Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github.com/intridea/grape)!
 
-[![Build Status](https://secure.travis-ci.org/LTe/grape-rabl.png)](http://travis-ci.org/LTe/grape-rabl)
-[![Dependency Status](https://gemnasium.com/LTe/grape-rabl.png)](https://gemnasium.com/LTe/grape-rabl)
-[![Code Climate](https://codeclimate.com/github/LTe/grape-rabl.png)](https://codeclimate.com/github/LTe/grape-rabl)
-[![Coverage Status](https://coveralls.io/repos/LTe/grape-rabl/badge.png?branch=master)](https://coveralls.io/r/LTe/grape-rabl?branch=master)
-[![Gem Version](https://badge.fury.io/rb/grape-rabl.png)](http://badge.fury.io/rb/grape-rabl)
+[![Gem Version](http://img.shields.io/gem/v/grape-rabl.svg)](http://badge.fury.io/rb/grape-rabl)
+[![Build Status](http://img.shields.io/travis/LTe/grape-rabl.svg)](https://travis-ci.org/LTe/grape-rabl)
+[![Dependency Status](https://gemnasium.com/LTe/grape-rabl.svg)](https://gemnasium.com/LTe/grape-rabl)
+[![Code Climate](https://codeclimate.com/github/LTe/grape-rabl.svg)](https://codeclimate.com/github/LTe/grape-rabl)
+[![Coverage Status](https://img.shields.io/coveralls/LTe/grape-rabl.svg)](https://coveralls.io/r/LTe/grape-rabl?branch=master)
 
 ## Installation
 
