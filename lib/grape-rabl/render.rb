@@ -1,8 +1,8 @@
 module GrapeRabl
   module Render
     def render(options = {})
-      env['api.endpoint'].options[:route_options][:rabl] = options.delete(:rabl) if options.include?(:rabl)
-      env['api.endpoint'].options[:route_options][:rabl_locals] = options.delete(:locals)
+      env['api.tilt.rabl'] = options[:rabl]
+      env['api.tilt.rabl_locals'] = options[:locals]
     end
   end
 end
