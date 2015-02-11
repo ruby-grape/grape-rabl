@@ -1,7 +1,6 @@
-#### Next
+#### v0.3.1
 
-* The `render` method will not modify endpoint options at runtime now. [#35](https://github.com/LTe/grape-rabl/issues/35) [@yesmeck](https://github.com/yesmeck)
-* Your contribution here.
+* The `render` method will no longer modify endpoint options at runtime. [#35](https://github.com/LTe/grape-rabl/issues/35) [@yesmeck](https://github.com/yesmeck)
 
 #### v0.3.0
 
