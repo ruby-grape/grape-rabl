@@ -103,6 +103,11 @@ describe Grape::Rabl do
         get('/about')
         parsed_response.should == JSON.parse('{"user":{"name":"LTe","project":null}}')
       end
+
+      it 'does not modify endpoint options' do
+        get '/home'
+        expect(last_request.env['api.endpoint'].options[:route_options][:rabl]).to eq 'user'
+      end
     end
 
     it 'should respond with proper content-type' do

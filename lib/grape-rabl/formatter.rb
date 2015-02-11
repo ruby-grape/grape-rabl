@@ -37,18 +37,21 @@ module Grape
         end
 
         def rablable?
-          !!endpoint.options[:route_options][:rabl]
+          !!rabl_template
         end
 
         def rabl
-          template = endpoint.options[:route_options][:rabl]
-          fail 'missing rabl template' unless template
+          fail 'missing rabl template' unless rabl_template
           set_view_root unless env['api.tilt.root']
-          yield template
+          yield rabl_template
         end
 
         def locals
-          endpoint.options[:route_options][:rabl_locals] || {}
+          env['api.tilt.rabl_locals'] || endpoint.options[:route_options][:rabl_locals] || {}
+        end
+
+        def rabl_template
+          env['api.tilt.rabl'] || endpoint.options[:route_options][:rabl]
         end
 
         def set_view_root
