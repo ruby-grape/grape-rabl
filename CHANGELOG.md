@@ -1,3 +1,7 @@
+#### Next
+
+* Your contribution here.
+
 #### v0.4.0
 
 * Make grape-rabl thread-safe. [#37](https://github.com/LTe/grape-rabl/issues/37) [@kushkella](https://github.com/kushkella)
