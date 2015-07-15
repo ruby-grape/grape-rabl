@@ -1,6 +1,7 @@
 require 'rabl'
 require 'grape'
 require 'hashie/hash'
+require 'grape/rabl'
 require 'grape-rabl/tilt'
 require 'grape-rabl/version'
 require 'grape-rabl/formatter'

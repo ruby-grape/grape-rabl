@@ -23,18 +23,9 @@ And then execute:
 
 ## Usage
 
-### Require grape-rabl
-
-```ruby
-# config.ru
-require 'grape/rabl'
-```
-
 ### Setup view root directory
 ```ruby
 # config.ru
-require 'grape/rabl'
-
 use Rack::Config do |env|
   env['api.tilt.root'] = '/path/to/view/root/directory'
 end
@@ -78,8 +69,6 @@ You can override the default layout conventions:
 
 ```ruby
 # config.ru
-require 'grape/rabl'
-
 use Rack::Config do |env|
   env['api.tilt.root'] = '/path/to/view/root/directory'
   env['api.tilt.layout'] = 'layouts/another'
@@ -94,8 +83,6 @@ You can enable template caching:
 
 ```ruby
 # config.ru
-require 'grape/rabl'
-
 Grape::Rabl.configure do |config|
   config.cache_template_loading = true # default: false
 end
@@ -114,8 +101,6 @@ get "/home", :rabl => "view.rabl"
 
 ```ruby
 # config.ru
-require 'grape/rabl'
-
 use Rack::Config do |env|
   env['api.tilt.root'] = '/path/to/view/root/directory'
 end
