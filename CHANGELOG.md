@@ -1,3 +1,7 @@
+#### Next
+
+* Your contribution here.
+
 #### v0.4.1
 
 * Automatically require 'grape/rabl'. [#39](https://github.com/LTe/grape-rabl/issues/39) [@martinezcoder](https://github.com/martinezcoder)
