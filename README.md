@@ -77,7 +77,7 @@ end
 
 ### Enable template caching
 
-Gape-rabl allows for template caching after templates are loaded initially.
+Grape-rabl allows for template caching after templates are loaded initially.
 
 You can enable template caching:
 
