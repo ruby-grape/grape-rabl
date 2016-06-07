@@ -6,8 +6,9 @@ describe Grape::Rabl do
   end
 
   before do
-    subject.format :json
+    subject.default_format :json
     subject.formatter :json, Grape::Formatter::Rabl
+    subject.formatter :xml, Grape::Formatter::Rabl
     subject.helpers MyHelper
   end
 
@@ -166,7 +167,27 @@ describe Grape::Rabl do
         old_response.should == new_response
       end
 
-      it 'should serve new template if cache_template_loading' do
+      it 'should maintain different cached templates for different formats' do
+        Grape::Rabl.configure do |config|
+          config.cache_template_loading = true
+        end
+        get '/home'
+        last_response.status.should be == 200
+        json_response = last_response.body
+        get '/home.xml'
+        last_response.status.should be == 200
+        xml_response = last_response.body
+        json_response.should_not be == xml_response
+        open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
+        get '/home.xml'
+        last_response.status.should be == 200
+        last_response.body.should be == xml_response
+        get '/home.json'
+        last_response.status.should be == 200
+        last_response.body.should be == json_response
+      end
+
+      it 'should serve new template unless cache_template_loading' do
         get '/home'
         last_response.status.should be == 200
         old_response = last_response.body
