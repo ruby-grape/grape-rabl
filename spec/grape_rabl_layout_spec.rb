@@ -28,8 +28,9 @@ describe 'Grape::Rabl layout' do
       end
 
       get('/about')
-      parsed_response.should ==
-        JSON.parse(%Q({"status":200,"result":{"user":{"name":"LTe","project":{"name":"First"}}}}))
+      expect(parsed_response).to eq(
+        JSON.parse(%({"status":200,"result":{"user":{"name":"LTe","project":{"name":"First"}}}}))
+      )
     end
   end
 
@@ -47,17 +48,18 @@ describe 'Grape::Rabl layout' do
 
       get('/about')
       puts last_response.body
-      parsed_response.should ==
-        JSON.parse(%Q({"result":{"user":{"name":"LTe","project":{"name":"First"}}}}))
+      expect(parsed_response).to eq(
+        JSON.parse(%({"result":{"user":{"name":"LTe","project":{"name":"First"}}}}))
+      )
     end
   end
 
   context 'layout cache' do
     before do
-      @views_dir = FileUtils.mkdir_p("#{File.expand_path("..", File.dirname(__FILE__))}/tmp")[0]
+      @views_dir = FileUtils.mkdir_p("#{File.expand_path('..', File.dirname(__FILE__))}/tmp")[0]
       @layout = "#{@views_dir}/layouts/application.rabl"
       FileUtils.cp_r("#{File.dirname(__FILE__)}/views/layout_test/.", @views_dir)
-      subject.before { env['api.tilt.root'] = "#{File.expand_path("..", File.dirname(__FILE__))}/tmp" }
+      subject.before { env['api.tilt.root'] = "#{File.expand_path('..', File.dirname(__FILE__))}/tmp" }
       subject.get('/home', rabl: 'user') do
         @user = OpenStruct.new(name: 'LTe', email: 'email@example.com')
         @project = OpenStruct.new(name: 'First')
@@ -75,24 +77,24 @@ describe 'Grape::Rabl layout' do
         config.cache_template_loading = true
       end
       get '/home'
-      last_response.status.should be == 200
+      expect(last_response.status).to eq(200)
       old_response = last_response.body
       open(@layout, 'a') { |f| f << 'node(:test) { "test" }' }
       get '/home'
-      last_response.status.should be == 200
+      expect(last_response.status).to eq(200)
       new_response = last_response.body
-      old_response.should == new_response
+      expect(old_response).to eq(new_response)
     end
 
     it 'should serve new template if cache_template_loading' do
       get '/home'
-      last_response.status.should be == 200
+      expect(last_response.status).to eq(200)
       old_response = last_response.body
       open(@layout, 'a') { |f| f << 'node(:test) { "test" }' }
       get '/home'
-      last_response.status.should be == 200
+      expect(last_response.status).to eq(200)
       new_response = last_response.body
-      old_response.should_not == new_response
+      expect(old_response).not_to eq(new_response)
     end
   end
 end

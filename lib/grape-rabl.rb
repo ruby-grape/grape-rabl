@@ -11,7 +11,7 @@ require 'grape-rabl/configuration'
 module Grape
   module Rabl
     class << self
-      def configure(&block)
+      def configure
         yield(configuration)
         configuration
       end

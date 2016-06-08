@@ -25,7 +25,8 @@ describe 'Grape::Rabl partials' do
     end
 
     get('/home')
-    parsed_response.should ==
-      JSON.parse("{\"project\":{\"name\":\"First\",\"info\":{\"type\":\"paper\"},\"author\":{\"author\":\"LTe\"}}}")
+    expect(parsed_response).to eq(
+      JSON.parse('{"project":{"name":"First","info":{"type":"paper"},"author":{"author":"LTe"}}}')
+    )
   end
 end

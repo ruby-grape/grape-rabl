@@ -15,6 +15,7 @@ require 'ostruct'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
+  config.raise_errors_for_deprecations!
 end
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }

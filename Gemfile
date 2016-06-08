@@ -3,18 +3,18 @@ source 'https://rubygems.org'
 gemspec
 
 group :development do
-  gem "rubocop", "0.20.1"
+  gem 'rubocop', '0.40.0'
 end
 
 group :test do
-  gem "json", '~> 1.7.7'
-  gem "rspec", "~> 2.12.0"
-  gem "rack-test"
-  gem "rake"
-  gem "coveralls", require: false
-  gem "rabl", :github => "nesquena/rabl"
+  gem 'json'
+  gem 'rspec'
+  gem 'rack-test'
+  gem 'rake'
+  gem 'coveralls', require: false
+  gem 'rabl'
 
   platforms :rbx do
-    gem "iconv"
+    gem 'iconv'
   end
 end

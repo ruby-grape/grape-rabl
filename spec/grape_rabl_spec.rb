@@ -19,7 +19,7 @@ describe Grape::Rabl do
   it 'should work without rabl template' do
     subject.get('/home') { 'Hello World' }
     get '/home'
-    last_response.body.should == "\"Hello World\""
+    expect(last_response.body).to eq('"Hello World"')
   end
 
   it 'should raise error about root directory' do
@@ -27,11 +27,11 @@ describe Grape::Rabl do
       subject.get('/home', rabl: true) {}
       get '/home'
     rescue Exception => e
-      e.message.should include "Use Rack::Config to set 'api.tilt.root' in config.ru"
+      expect(e.message).to include "Use Rack::Config to set 'api.tilt.root' in config.ru"
     end
   end
 
-  context 'titl root is setup'  do
+  context 'titl root is setup' do
     let(:parsed_response) { JSON.parse(last_response.body) }
 
     before do
@@ -42,7 +42,7 @@ describe Grape::Rabl do
       it 'should execute helper' do
         subject.get('/home', rabl: 'helper') { @user = OpenStruct.new }
         get '/home'
-        parsed_response.should == JSON.parse("{\"user\":{\"helper\":\"my_helper\"}}")
+        expect(parsed_response).to eq(JSON.parse('{"user":{"helper":"my_helper"}}'))
       end
     end
 
@@ -76,33 +76,33 @@ describe Grape::Rabl do
 
       it 'renders template passed as argument to render method' do
         get('/home')
-        parsed_response.should == JSON.parse('{"admin":{"name":"LTe"}}')
+        expect(parsed_response).to eq(JSON.parse('{"admin":{"name":"LTe"}}'))
       end
 
       it 'renders admin template' do
         get('/admin/1')
-        parsed_response.should == JSON.parse('{"admin":{"name":"LTe"}}')
+        expect(parsed_response).to eq(JSON.parse('{"admin":{"name":"LTe"}}'))
       end
 
       it 'renders user template' do
         get('/admin/2')
-        parsed_response.should == JSON.parse('{"user":{"name":"LTe","project":null}}')
+        expect(parsed_response).to eq(JSON.parse('{"user":{"name":"LTe","project":null}}'))
       end
 
       it 'renders template passed as argument to render method with locals' do
         get('/home-detail')
-        parsed_response.should == JSON.parse('{"admin":{"name":"LTe","details":"amazing detail"}}')
+        expect(parsed_response).to eq(JSON.parse('{"admin":{"name":"LTe","details":"amazing detail"}}'))
       end
 
       it 'renders with locals without overriding template' do
         get('/about-detail')
-        parsed_response.should == JSON.parse('{"user":{"name":"LTe","details":"just a user","project":null}}')
+        expect(parsed_response).to eq(JSON.parse('{"user":{"name":"LTe","details":"just a user","project":null}}'))
       end
 
       it 'does not save rabl options after called #render method' do
         get('/home')
         get('/about')
-        parsed_response.should == JSON.parse('{"user":{"name":"LTe","project":null}}')
+        expect(parsed_response).to eq(JSON.parse('{"user":{"name":"LTe","project":null}}'))
       end
 
       it 'does not modify endpoint options' do
@@ -114,14 +114,14 @@ describe Grape::Rabl do
     it 'should respond with proper content-type' do
       subject.get('/home', rabl: 'user') {}
       get('/home')
-      last_response.headers['Content-Type'].should == 'application/json'
+      expect(last_response.headers['Content-Type']).to eq('application/json')
     end
 
     it 'should not raise error about root directory' do
       subject.get('/home', rabl: 'user') {}
       get '/home'
-      last_response.status.should eq 200
-      last_response.body.should_not include "Use Rack::Config to set 'api.tilt.root' in config.ru"
+      expect(last_response.status).to eq 200
+      expect(last_response.body).not_to include "Use Rack::Config to set 'api.tilt.root' in config.ru"
     end
 
     ['user', 'user.rabl'].each do |rabl_option|
@@ -132,16 +132,16 @@ describe Grape::Rabl do
         end
 
         get '/home'
-        parsed_response.should == JSON.parse('{"user":{"name":"LTe","email":"email@example.com","project":{"name":"First"}}}')
+        expect(parsed_response).to eq(JSON.parse('{"user":{"name":"LTe","email":"email@example.com","project":{"name":"First"}}}'))
       end
     end
 
     describe 'template cache' do
       before do
-        @views_dir = FileUtils.mkdir_p("#{File.expand_path("..", File.dirname(__FILE__))}/tmp")[0]
+        @views_dir = FileUtils.mkdir_p("#{File.expand_path('..', File.dirname(__FILE__))}/tmp")[0]
         @template = "#{@views_dir}/user.rabl"
         FileUtils.cp("#{File.dirname(__FILE__)}/views/user.rabl", @template)
-        subject.before { env['api.tilt.root'] = "#{File.expand_path("..", File.dirname(__FILE__))}/tmp" }
+        subject.before { env['api.tilt.root'] = "#{File.expand_path('..', File.dirname(__FILE__))}/tmp" }
         subject.get('/home', rabl: 'user') do
           @user = OpenStruct.new(name: 'LTe', email: 'email@example.com')
           @project = OpenStruct.new(name: 'First')
@@ -158,13 +158,13 @@ describe Grape::Rabl do
           config.cache_template_loading = true
         end
         get '/home'
-        last_response.status.should be == 200
+        expect(last_response.status).to eq(200)
         old_response = last_response.body
         open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
         get '/home'
-        last_response.status.should be == 200
+        expect(last_response.status).to eq(200)
         new_response = last_response.body
-        old_response.should == new_response
+        expect(old_response).to eq(new_response)
       end
 
       it 'should maintain different cached templates for different formats' do
@@ -172,30 +172,30 @@ describe Grape::Rabl do
           config.cache_template_loading = true
         end
         get '/home'
-        last_response.status.should be == 200
+        expect(last_response.status).to eq(200)
         json_response = last_response.body
         get '/home.xml'
-        last_response.status.should be == 200
+        expect(last_response.status).to eq(200)
         xml_response = last_response.body
-        json_response.should_not be == xml_response
+        expect(json_response).not_to eq(xml_response)
         open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
         get '/home.xml'
-        last_response.status.should be == 200
-        last_response.body.should be == xml_response
+        expect(last_response.status).to eq(200)
+        expect(last_response.body).to eq(xml_response)
         get '/home.json'
-        last_response.status.should be == 200
-        last_response.body.should be == json_response
+        expect(last_response.status).to eq(200)
+        expect(last_response.body).to eq(json_response)
       end
 
       it 'should serve new template unless cache_template_loading' do
         get '/home'
-        last_response.status.should be == 200
+        expect(last_response.status).to eq(200)
         old_response = last_response.body
         open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
         get '/home'
-        last_response.status.should be == 200
+        expect(last_response.status).to eq(200)
         new_response = last_response.body
-        old_response.should_not == new_response
+        expect(old_response).not_to eq(new_response)
       end
     end
   end

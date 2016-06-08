@@ -3,16 +3,16 @@ require 'spec_helper'
 describe 'Grape::Rabl configuration' do
   context 'configuration' do
     it 'returns default values' do
-      Grape::Rabl.configuration.cache_template_loading.should == false
+      expect(Grape::Rabl.configuration.cache_template_loading).to eq(false)
     end
 
     it 'should set and reset configuration' do
       Grape::Rabl.configure do |config|
         config.cache_template_loading = true
       end
-      Grape::Rabl.configuration.cache_template_loading.should be == true
+      expect(Grape::Rabl.configuration.cache_template_loading).to eq(true)
       Grape::Rabl.reset_configuration!
-      Grape::Rabl.configuration.cache_template_loading.should == false
+      expect(Grape::Rabl.configuration.cache_template_loading).to eq(false)
     end
   end
 end

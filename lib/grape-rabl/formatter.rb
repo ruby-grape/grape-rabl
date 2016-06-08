@@ -48,7 +48,7 @@ module Grape
       end
 
       def rabl
-        fail 'missing rabl template' unless rabl_template
+        raise 'missing rabl template' unless rabl_template
         set_view_root unless env['api.tilt.root']
         yield rabl_template
       end
@@ -62,7 +62,7 @@ module Grape
       end
 
       def set_view_root
-        fail "Use Rack::Config to set 'api.tilt.root' in config.ru"
+        raise "Use Rack::Config to set 'api.tilt.root' in config.ru"
       end
 
       def tilt_template(template)

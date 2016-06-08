@@ -14,7 +14,7 @@ describe Grape::Rabl do
     subject
   end
 
-  context 'with xml format'  do
+  context 'with xml format' do
     before do
       subject.before do
         env['api.tilt.root'] = "#{File.dirname(__FILE__)}/views"
@@ -25,7 +25,7 @@ describe Grape::Rabl do
     it 'should respond with proper content-type' do
       subject.get('/home', rabl: 'user') {}
       get('/home')
-      last_response.headers['Content-Type'].should == 'application/xml'
+      expect(last_response.headers['Content-Type']).to eq('application/xml')
     end
 
     ['user', 'user.rabl'].each do |rabl_option|
@@ -37,7 +37,7 @@ describe Grape::Rabl do
 
         get '/home'
 
-        last_response.body.should == %Q(<?xml version="1.0" encoding="UTF-8"?>
+        expect(last_response.body).to eq(%(<?xml version="1.0" encoding="UTF-8"?>
 <user>
   <name>LTe</name>
   <email>email@example.com</email>
@@ -45,7 +45,7 @@ describe Grape::Rabl do
     <name>First</name>
   </project>
 </user>
-)
+))
       end
     end
   end
