@@ -1,3 +1,7 @@
+#### Next
+
+* Your contribution here.
+
 #### v0.4.2
 
 * Fix template caching for multiple formats. [#43](https://github.com/ruby-grape/grape-rabl/pull/43) [@kushkella](https://github.com/kushkella)
