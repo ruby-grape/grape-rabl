@@ -67,7 +67,7 @@ module Grape
 
       def tilt_template(template)
         if Grape::Rabl.configuration.cache_template_loading
-          Grape::Rabl::Formatter.tilt_cache.fetch(template) { ::Tilt.new(view_path(template), tilt_options) }
+          Grape::Rabl::Formatter.tilt_cache.fetch(tilt_cache_key(template)) { ::Tilt.new(view_path(template), tilt_options) }
         else
           ::Tilt.new(view_path(template), tilt_options)
         end
@@ -80,10 +80,14 @@ module Grape
       def layout_template
         layout_path = view_path(env['api.tilt.layout'] || 'layouts/application')
         if Grape::Rabl.configuration.cache_template_loading
-          Grape::Rabl::Formatter.tilt_cache.fetch(layout_path) { ::Tilt.new(layout_path, tilt_options) if File.exist?(layout_path) }
+          Grape::Rabl::Formatter.tilt_cache.fetch(tilt_cache_key(layout_path)) { ::Tilt.new(layout_path, tilt_options) if File.exist?(layout_path) }
         else
           ::Tilt.new(layout_path, tilt_options) if File.exist?(layout_path)
         end
+      end
+
+      def tilt_cache_key(path)
+        Digest::MD5.hexdigest("#{path}#{tilt_options}")
       end
     end
   end
