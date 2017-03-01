@@ -1,6 +1,7 @@
 #### Next
 
 * Your contribution here.
+* require 'grape/rabl' in grape-rabl.rb [#39](https://github.com/LTe/grape-rabl/issues/37) [@martinezcoder](https://github.com/martinezcoder)
 
 #### v0.4.2
 
