@@ -1,6 +1,6 @@
 #### Next
 
-* Your contribution here.
+* Don't require unused hashie and drop support of Ruby 2.0, 2.1
 
 #### v0.4.2
 
