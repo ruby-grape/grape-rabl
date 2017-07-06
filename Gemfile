@@ -13,8 +13,5 @@ group :test do
   gem 'rake'
   gem 'coveralls', require: false
   gem 'rabl'
-
-  platforms :rbx do
-    gem 'iconv'
-  end
+  gem 'ruby-grape-danger', '~> 0.1.1', require: false
 end

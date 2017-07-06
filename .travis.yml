@@ -3,13 +3,11 @@ rvm:
   - 2.2.0
   - 2.3.0
   - ruby-head
-  - jruby-19mode
-  - jruby-head
-  - rbx-2
 
 matrix:
+  include:
+    - rvm: 2.3.1
+      script:
+        - bundle exec danger
   allow_failures:
-    - rvm: jruby-19mode
-    - rvm: jruby-head
     - rvm: ruby-head
-    - rvm: rbx-2
