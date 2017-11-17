@@ -1,3 +1,7 @@
+#### Next
+
+* Your contribution here.
+
 #### v0.4.3
 
 * [#44](https://github.com/ruby-grape/grape-rabl/issues/44): Don't require unused hashie - [@tsuwatch](https://github.com/tsuwatch).
