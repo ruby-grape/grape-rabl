@@ -2,9 +2,9 @@ object @project => :project
 attributes :name
 
 node :info do
-  partial "partial", object: @project.type
+  partial 'partial', object: @project.type
 end
 
 child @author => :author do
-  extends "info"
+  extends 'info'
 end

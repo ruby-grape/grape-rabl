@@ -1,8 +1,8 @@
-# -*- encoding: utf-8 -*-
+
 require File.expand_path('../lib/grape-rabl/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Piotr Niełacny"]
+  gem.authors       = ['Piotr Niełacny']
   gem.email         = ['piotr.nielacny@gmail.com']
   gem.description   = 'Use rabl in grape'
   gem.summary       = 'Use rabl in grape'
@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = '>= 2.2.0'
 
   gem.add_dependency 'grape'
+  gem.add_dependency 'i18n'
   gem.add_dependency 'rabl'
   gem.add_dependency 'tilt'
-  gem.add_dependency 'i18n'
 end
