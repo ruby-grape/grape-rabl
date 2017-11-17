@@ -1,9 +1,8 @@
-#### Next
+#### v0.4.3
 
 * [#44](https://github.com/ruby-grape/grape-rabl/issues/44): Don't require unused hashie - [@tsuwatch](https://github.com/tsuwatch).
 * [#44](https://github.com/ruby-grape/grape-rabl/issues/44): Support Ruby >= 2.2 - [@tsuwatch](https://github.com/tsuwatch).
 * [#45](https://github.com/ruby-grape/grape-rabl/pull/45): Added danger, PR linter - [@dblock](https://github.com/dblock).
-* Your contribution here.
 
 #### v0.4.2
 

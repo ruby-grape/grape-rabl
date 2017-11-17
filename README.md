@@ -24,6 +24,7 @@ And then execute:
 ## Usage
 
 ### Setup view root directory
+
 ```ruby
 # config.ru
 use Rack::Config do |env|
@@ -194,15 +195,9 @@ See ["Writing Tests"](https://github.com/intridea/grape#writing-tests) in [https
 
 Enjoy :)
 
-
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
-
+See [CONTRIBUTING](CONTRIBUTING.md).
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ruby-grape/grape-rabl/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
