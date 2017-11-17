@@ -5,6 +5,6 @@ child @project => :project do
   attributes :name
 end
 
-node :details, :unless => lambda { |n| locals[:details].nil? } do |m|
+node :details, unless: ->(_n) { locals[:details].nil? } do |_m|
   locals[:details]
 end
