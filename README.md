@@ -198,6 +198,3 @@ Enjoy :)
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md).
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ruby-grape/grape-rabl/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
