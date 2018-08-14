@@ -26,7 +26,7 @@ And then execute:
 ### Setup view root directory
 
 ```ruby
-# config.ru
+# config.rb
 use Rack::Config do |env|
   env['api.tilt.root'] = '/path/to/view/root/directory'
 end
