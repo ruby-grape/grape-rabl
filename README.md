@@ -4,7 +4,6 @@ Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github
 
 [![Gem Version](http://img.shields.io/gem/v/grape-rabl.svg)](http://badge.fury.io/rb/grape-rabl)
 [![Build Status](http://img.shields.io/travis/ruby-grape/grape-rabl.svg)](https://travis-ci.org/ruby-grape/grape-rabl)
-[![Dependency Status](https://gemnasium.com/ruby-grape/grape-rabl.svg)](https://gemnasium.com/ruby-grape/grape-rabl)
 [![Code Climate](https://codeclimate.com/github/ruby-grape/grape-rabl.svg)](https://codeclimate.com/github/ruby-grape/grape-rabl)
 [![Coverage Status](https://img.shields.io/coveralls/ruby-grape/grape-rabl.svg)](https://coveralls.io/r/ruby-grape/grape-rabl?branch=master)
 
