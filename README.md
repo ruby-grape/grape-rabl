@@ -1,6 +1,6 @@
 # Grape::Rabl
 
-Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github.com/intridea/grape)!
+Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github.com/ruby-grape/grape)!
 
 [![Gem Version](http://img.shields.io/gem/v/grape-rabl.svg)](http://badge.fury.io/rb/grape-rabl)
 [![Build Status](http://img.shields.io/travis/ruby-grape/grape-rabl.svg)](https://travis-ci.org/ruby-grape/grape-rabl)
@@ -190,7 +190,7 @@ end
 
 ## Specs
 
-See ["Writing Tests"](https://github.com/intridea/grape#writing-tests) in [https://github.com/intridea/grape](grape) README.
+See ["Writing Tests"](https://github.com/ruby-grape/grape#writing-tests) in [grape](https://github.com/ruby-grape/grape) README.
 
 Enjoy :)
 
