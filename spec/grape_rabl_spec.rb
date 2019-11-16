@@ -117,7 +117,7 @@ describe Grape::Rabl do
           subject.default_format :xml
         end
 
-        it 'should fallback to using the default formatter' do
+        it 'should fallback to using the default formatter if no template is specified' do
           subject.get('/oops') { { errors: ['bad', 'things', 'happened'] } }
           get '/oops'
           expect(last_response.body).to eq(%(<?xml version="1.0" encoding="UTF-8"?>

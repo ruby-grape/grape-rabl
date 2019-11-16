@@ -1,6 +1,6 @@
 #### Next
 
-* Your contribution here.
+* [#33](https://github.com/ruby-grape/grape-rabl/issues/44): Fallback to default formatter - [@chrisbloom7](https://github.com/chrisbloom7).
 
 #### v0.4.3
 
