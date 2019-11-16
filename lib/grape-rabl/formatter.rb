@@ -29,12 +29,16 @@ module Grape
             end
           end
         else
-          fallback_formatter = Grape::Formatter::Base.formatter_for(env['api.format']) || Grape::Formatter::Json
           fallback_formatter.call object, env
         end
       end
 
       private
+
+      def fallback_formatter
+        return @fallback_formatter if defined?(@fallback_formatter)
+        @fallback_formatter = Grape::Formatter.formatter_for(env['api.format']) || Grape::Formatter::Json
+      end
 
       def view_path(template)
         if template.split('.')[-1] == 'rabl'
