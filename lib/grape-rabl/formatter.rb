@@ -29,11 +29,17 @@ module Grape
             end
           end
         else
-          Grape::Formatter::Json.call object, env
+          fallback_formatter.call object, env
         end
       end
 
       private
+
+      # Find a formatter to fallback to. `env[Grape::Env::API_FORMAT]` will always be a
+      # valid formatter, otherwise a HTTP 406 error would have already have been thrown
+      def fallback_formatter
+        Grape::Formatter.formatter_for(env[Grape::Env::API_FORMAT])
+      end
 
       def view_path(template)
         if template.split('.')[-1] == 'rabl'

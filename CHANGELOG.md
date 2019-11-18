@@ -2,6 +2,10 @@
 
 * Your contribution here.
 
+#### v0.5.0
+
+* [#34](https://github.com/ruby-grape/grape-rabl/pulls/34): If no RABL template is specified, fallback to the default response format as determined by Grape - [@chrisbloom7](https://github.com/chrisbloom7).
+
 #### v0.4.3
 
 * [#44](https://github.com/ruby-grape/grape-rabl/issues/44): Don't require unused hashie - [@tsuwatch](https://github.com/tsuwatch).
