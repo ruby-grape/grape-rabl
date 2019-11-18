@@ -12,7 +12,7 @@ class SampleApi < Grape::API
   formatter :xml, Grape::Formatter::Rabl
 
   get 'list' do
-    render %w[thing]
+    %w[thing]
   end
 end
 ```
