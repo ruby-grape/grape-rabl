@@ -6,16 +6,15 @@ describe 'Grape::Rabl formatter' do
   end
 
   let(:xml_render) do
-    <<~XML
-    <?xml version="1.0" encoding="UTF-8"?>
-    <hash>
-      <errors type="array">
-        <error>bad</error>
-        <error>things</error>
-        <error>happened</error>
-      </errors>
-    </hash>
-    XML
+    %(<?xml version="1.0" encoding="UTF-8"?>
+<hash>
+  <errors type="array">
+    <error>bad</error>
+    <error>things</error>
+    <error>happened</error>
+  </errors>
+</hash>
+)
   end
 
   def app
@@ -66,7 +65,7 @@ describe 'Grape::Rabl formatter' do
       end
 
       it 'falls back to the `Accept` header if it is a valid format' do
-        get '/oops', {}, { 'HTTP_ACCEPT' => 'application/xml' }
+        get '/oops', {}, 'HTTP_ACCEPT' => 'application/xml'
         expect(last_response.body).to eq(xml_render)
         expect(last_response.headers['Content-Type']).to eq('application/xml')
       end
