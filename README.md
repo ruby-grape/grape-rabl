@@ -20,6 +20,10 @@ And then execute:
 
     $ bundle
 
+## Upgrading
+
+See [UPGRADING](UPGRADING.md).
+
 ## Usage
 
 ### Setup view root directory
@@ -134,7 +138,7 @@ class UserAPI < Grape::API
     @history = User.find(params[:id]).history
   end
 
-  # do not use rabl, fallback to the defalt Grape JSON formatter
+  # do not use rabl, fallback to the default Grape response formatter
   get '/users' do
     User.all
   end
