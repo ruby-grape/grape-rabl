@@ -35,9 +35,10 @@ module Grape
 
       private
 
+      # Find a formatter to fallback to. `env[Grape::Env::API_FORMAT]` will always be a
+      # valid formatter, otherwise a HTTP 406 error would have already have been thrown
       def fallback_formatter
-        return @fallback_formatter if defined?(@fallback_formatter)
-        @fallback_formatter = Grape::Formatter.formatter_for(env['api.format']) || Grape::Formatter::Json
+        Grape::Formatter.formatter_for(env[Grape::Env::API_FORMAT])
       end
 
       def view_path(template)
