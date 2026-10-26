@@ -2,6 +2,9 @@
 
 * Your contribution here.
 
+* [#54](https://github.com/ruby-grape/grape-rabl/pull/54): Replaced Travis CI with GitHub Actions, modernized RuboCop and coverage reporting, and added a Ruby 2.7-4.0/Grape 1.x-4.x compatibility matrix; Ruby 2.7 or newer is now required - [@dblock](https://github.com/dblock).
+* [#54](https://github.com/ruby-grape/grape-rabl/pull/54): Fixed fallback rendering with newer Grape versions, including Grape 4.x - [@dblock](https://github.com/dblock).
+
 #### v0.5.0
 
 * [#34](https://github.com/ruby-grape/grape-rabl/pulls/34): If no RABL template is specified, fallback to the default response format as determined by Grape - [@chrisbloom7](https://github.com/chrisbloom7).

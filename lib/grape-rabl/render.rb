@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Grape
   module Rabl
     module Render
@@ -9,4 +11,4 @@ module Grape
   end
 end
 
-Grape::Endpoint.send(:include, Grape::Rabl::Render)
+Grape::Endpoint.include Grape::Rabl::Render

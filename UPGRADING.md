@@ -1,5 +1,9 @@
 # Upgrading Grape::Rabl
 
+## Upgrading to the next release
+
+Ruby 2.7 or newer is required. Grape 1.x through 4.x are covered by CI, with Grape 3.x and 4.x tested on Ruby 3.3 and newer. Applications on Grape 1.x must use Rack 2.x.
+
 ## Upgrading to >= 0.5
 
 ### Fallback rendering when no RABL template is defined

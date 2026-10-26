@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'Grape::Rabl layout' do
@@ -22,8 +24,8 @@ describe 'Grape::Rabl layout' do
   context 'default' do
     it 'proper render with default layout' do
       subject.get('/about', rabl: 'user') do
-        @user = OpenStruct.new(name: 'LTe')
-        @project = OpenStruct.new(name: 'First')
+        @user = Struct.new(:name).new('LTe')
+        @project = Struct.new(:name).new('First')
         @status = 200
       end
 
@@ -41,8 +43,8 @@ describe 'Grape::Rabl layout' do
 
     it 'proper render with specified layout' do
       subject.get('/about', rabl: 'user') do
-        @user = OpenStruct.new(name: 'LTe')
-        @project = OpenStruct.new(name: 'First')
+        @user = Struct.new(:name).new('LTe')
+        @project = Struct.new(:name).new('First')
         @status = 200
       end
 
@@ -61,8 +63,8 @@ describe 'Grape::Rabl layout' do
       FileUtils.cp_r("#{File.dirname(__FILE__)}/views/layout_test/.", @views_dir)
       subject.before { env['api.tilt.root'] = "#{File.expand_path('..', File.dirname(__FILE__))}/tmp" }
       subject.get('/home', rabl: 'user') do
-        @user = OpenStruct.new(name: 'LTe', email: 'email@example.com')
-        @project = OpenStruct.new(name: 'First')
+        @user = Struct.new(:name, :email).new('LTe', 'email@example.com')
+        @project = Struct.new(:name).new('First')
         @status = 200
       end
     end
@@ -79,7 +81,7 @@ describe 'Grape::Rabl layout' do
       get '/home'
       expect(last_response.status).to eq(200)
       old_response = last_response.body
-      open(@layout, 'a') { |f| f << 'node(:test) { "test" }' }
+      File.open(@layout, 'a') { |f| f << 'node(:test) { "test" }' }
       get '/home'
       expect(last_response.status).to eq(200)
       new_response = last_response.body
@@ -90,7 +92,7 @@ describe 'Grape::Rabl layout' do
       get '/home'
       expect(last_response.status).to eq(200)
       old_response = last_response.body
-      open(@layout, 'a') { |f| f << 'node(:test) { "test" }' }
+      File.open(@layout, 'a') { |f| f << 'node(:test) { "test" }' }
       get '/home'
       expect(last_response.status).to eq(200)
       new_response = last_response.body

@@ -32,6 +32,17 @@ bundle install
 bundle exec rake
 ```
 
+CI runs on GitHub Actions with Grape 1.x and 2.x on Ruby 2.7, Grape 1.x through 4.x on Ruby 3.3, and Grape 4.x on Ruby 3.4, Ruby 4.0, and ruby-head (allowed to fail). Ruby 2.7 jobs use Ubuntu 22.04; newer Rubies use the latest Ubuntu runner.
+
+Select a Grape major version locally using `GRAPE_VERSION`. Resolve the bundle again when switching versions:
+
+```sh
+GRAPE_VERSION=4 bundle update
+GRAPE_VERSION=4 bundle exec rake
+```
+
+Use `GRAPE_VERSION=1`, `2`, or `3` for the other supported majors. The Grape 1.x bundle selects Rack 2.x because Grape 1.x is not compatible with Rack 3.x. Without `GRAPE_VERSION`, Bundler selects the latest Grape compatible with your Ruby.
+
 #### Write Tests
 
 Try to write a test that reproduces the problem you're trying to fix or describes a feature that you want to build. Add to [spec/grape-rabl](spec/grape-rabl).
@@ -107,7 +118,7 @@ git push origin my-feature-branch -f
 
 #### Check on Your Pull Request
 
-Go back to your pull request after a few minutes and see whether it passed muster with Travis-CI. Everything should look green, otherwise fix issues and amend your commit as described above.
+Go back to your pull request after a few minutes and check its GitHub Actions results. Everything should look green, otherwise fix issues and amend your commit as described above.
 
 #### Be Patient
 

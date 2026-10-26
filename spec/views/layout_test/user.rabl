@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 object @user => :user
 attributes :name, :email
 

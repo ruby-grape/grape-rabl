@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe Grape::Rabl do
@@ -23,12 +25,8 @@ describe Grape::Rabl do
   end
 
   it 'should raise error about root directory' do
-    begin
-      subject.get('/home', rabl: true) {}
-      get '/home'
-    rescue Exception => e
-      expect(e.message).to include "Use Rack::Config to set 'api.tilt.root' in config.ru"
-    end
+    subject.get('/home', rabl: true) { nil }
+    expect { get '/home' }.to raise_error(RuntimeError, "Use Rack::Config to set 'api.tilt.root' in config.ru")
   end
 
   context 'titl root is setup' do
@@ -40,7 +38,7 @@ describe Grape::Rabl do
 
     describe 'helpers' do
       it 'should execute helper' do
-        subject.get('/home', rabl: 'helper') { @user = OpenStruct.new }
+        subject.get('/home', rabl: 'helper') { @user = Object.new }
         get '/home'
         expect(parsed_response).to eq(JSON.parse('{"user":{"helper":"my_helper"}}'))
       end
@@ -49,27 +47,27 @@ describe Grape::Rabl do
     describe '#render' do
       before do
         subject.get('/home', rabl: 'user') do
-          @user = OpenStruct.new(name: 'LTe')
+          @user = Struct.new(:name).new('LTe')
           render rabl: 'admin'
         end
 
         subject.get('/admin/:id', rabl: 'user') do
-          @user = OpenStruct.new(name: 'LTe')
+          @user = Struct.new(:name).new('LTe')
 
           render rabl: 'admin' if params[:id] == '1'
         end
 
         subject.get('/home-detail', rabl: 'user') do
-          @user = OpenStruct.new(name: 'LTe')
+          @user = Struct.new(:name).new('LTe')
           render rabl: 'admin', locals: { details: 'amazing detail' }
         end
 
         subject.get('/about', rabl: 'user') do
-          @user = OpenStruct.new(name: 'LTe')
+          @user = Struct.new(:name).new('LTe')
         end
 
         subject.get('/about-detail', rabl: 'user') do
-          @user = OpenStruct.new(name: 'LTe')
+          @user = Struct.new(:name).new('LTe')
           render locals: { details: 'just a user' }
         end
       end
@@ -112,13 +110,13 @@ describe Grape::Rabl do
     end
 
     it 'should respond with proper content-type' do
-      subject.get('/home', rabl: 'user') {}
+      subject.get('/home', rabl: 'user') { nil }
       get('/home')
       expect(last_response.headers['Content-Type']).to eq('application/json')
     end
 
     it 'should not raise error about root directory' do
-      subject.get('/home', rabl: 'user') {}
+      subject.get('/home', rabl: 'user') { nil }
       get '/home'
       expect(last_response.status).to eq 200
       expect(last_response.body).not_to include "Use Rack::Config to set 'api.tilt.root' in config.ru"
@@ -127,8 +125,8 @@ describe Grape::Rabl do
     ['user', 'user.rabl'].each do |rabl_option|
       it "should render rabl template (#{rabl_option})" do
         subject.get('/home', rabl: rabl_option) do
-          @user = OpenStruct.new(name: 'LTe', email: 'email@example.com')
-          @project = OpenStruct.new(name: 'First')
+          @user = Struct.new(:name, :email).new('LTe', 'email@example.com')
+          @project = Struct.new(:name).new('First')
         end
 
         get '/home'
@@ -143,8 +141,8 @@ describe Grape::Rabl do
         FileUtils.cp("#{File.dirname(__FILE__)}/views/user.rabl", @template)
         subject.before { env['api.tilt.root'] = "#{File.expand_path('..', File.dirname(__FILE__))}/tmp" }
         subject.get('/home', rabl: 'user') do
-          @user = OpenStruct.new(name: 'LTe', email: 'email@example.com')
-          @project = OpenStruct.new(name: 'First')
+          @user = Struct.new(:name, :email).new('LTe', 'email@example.com')
+          @project = Struct.new(:name).new('First')
         end
       end
 
@@ -160,7 +158,7 @@ describe Grape::Rabl do
         get '/home'
         expect(last_response.status).to eq(200)
         old_response = last_response.body
-        open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
+        File.open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
         get '/home'
         expect(last_response.status).to eq(200)
         new_response = last_response.body
@@ -178,7 +176,7 @@ describe Grape::Rabl do
         expect(last_response.status).to eq(200)
         xml_response = last_response.body
         expect(json_response).not_to eq(xml_response)
-        open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
+        File.open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
         get '/home.xml'
         expect(last_response.status).to eq(200)
         expect(last_response.body).to eq(xml_response)
@@ -191,7 +189,7 @@ describe Grape::Rabl do
         get '/home'
         expect(last_response.status).to eq(200)
         old_response = last_response.body
-        open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
+        File.open(@template, 'a') { |f| f << 'node(:test) { "test" }' }
         get '/home'
         expect(last_response.status).to eq(200)
         new_response = last_response.body

@@ -1,6 +1,8 @@
 AllCops:
+  NewCops: enable
+  TargetRubyVersion: 2.7
   Exclude:
-    - vendor/**
+    - vendor/**/*
     - .bundle
 
 inherit_from: .rubocop_todo.yml

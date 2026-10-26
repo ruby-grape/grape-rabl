@@ -1,0 +1,48 @@
+name: Test
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os || 'ubuntu-latest' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { ruby: '2.7', grape: '1', os: 'ubuntu-22.04' }
+          - { ruby: '2.7', grape: '2', os: 'ubuntu-22.04' }
+          - { ruby: '3.3', grape: '1' }
+          - { ruby: '3.3', grape: '2' }
+          - { ruby: '3.3', grape: '3' }
+          - { ruby: '3.3', grape: '4' }
+          - { ruby: '3.4', grape: '4' }
+          - { ruby: '4.0', grape: '4' }
+          - { ruby: 'ruby-head', grape: '4', experimental: true }
+    name: Ruby ${{ matrix.ruby }} / Grape ${{ matrix.grape }}
+    continue-on-error: ${{ matrix.experimental || false }}
+    env:
+      GRAPE_VERSION: ${{ matrix.grape }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - run: bundle exec rake spec
+      - uses: coverallsapp/github-action@v2
+        if: matrix.ruby == '3.3' && matrix.grape == '4'
+        with:
+          file: coverage/lcov/grape-rabl.lcov
+          format: lcov
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - run: bundle exec rake rubocop

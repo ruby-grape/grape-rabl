@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'Grape::Rabl partials' do
@@ -19,9 +21,9 @@ describe 'Grape::Rabl partials' do
 
   it 'proper render partials' do
     subject.get('/home', rabl: 'project') do
-      @author   = OpenStruct.new(author: 'LTe')
-      @type     = OpenStruct.new(type: 'paper')
-      @project  = OpenStruct.new(name: 'First', type: @type, author: @author)
+      @author   = Struct.new(:author).new('LTe')
+      @type     = Struct.new(:type).new('paper')
+      @project  = Struct.new(:name, :type, :author).new('First', @type, @author)
     end
 
     get('/home')
