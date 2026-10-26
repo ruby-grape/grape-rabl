@@ -2,9 +2,8 @@
 
 Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github.com/ruby-grape/grape)!
 
-[![Gem Version](http://img.shields.io/gem/v/grape-rabl.svg)](http://badge.fury.io/rb/grape-rabl)
-[![Build Status](https://github.com/ruby-grape/grape-rabl/actions/workflows/test.yml/badge.svg)](https://github.com/ruby-grape/grape-rabl/actions/workflows/test.yml)
-[![Code Climate](https://codeclimate.com/github/ruby-grape/grape-rabl.svg)](https://codeclimate.com/github/ruby-grape/grape-rabl)
+[![Gem Version](https://img.shields.io/gem/v/grape-rabl.svg)](https://rubygems.org/gems/grape-rabl)
+[![Build Status](https://github.com/ruby-grape/grape-rabl/actions/workflows/test.yml/badge.svg?branch=master&event=push)](https://github.com/ruby-grape/grape-rabl/actions/workflows/test.yml?query=branch%3Amaster)
 [![Coverage Status](https://coveralls.io/repos/github/ruby-grape/grape-rabl/badge.svg?branch=master)](https://coveralls.io/github/ruby-grape/grape-rabl?branch=master)
 
 # Table of Contents
