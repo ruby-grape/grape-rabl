@@ -5,9 +5,16 @@ require 'json'
 module Grape
   module Rabl
     class Formatter
+      @tilt_cache = {}
+      @tilt_cache_mutex = Mutex.new
+
       class << self
-        def tilt_cache
-          @tilt_cache ||= ::Tilt::Cache.new
+        attr_reader :tilt_cache
+
+        def fetch_cached_template(key)
+          @tilt_cache_mutex.synchronize do
+            tilt_cache.fetch(key) { tilt_cache[key] = yield }
+          end
         end
       end
 
@@ -76,7 +83,9 @@ module Grape
 
       def tilt_template(template)
         if Grape::Rabl.configuration.cache_template_loading
-          Grape::Rabl::Formatter.tilt_cache.fetch(tilt_cache_key(template)) { ::Tilt.new(view_path(template), tilt_options) }
+          Grape::Rabl::Formatter.fetch_cached_template(tilt_cache_key(template)) do
+            ::Tilt.new(view_path(template), tilt_options)
+          end
         else
           ::Tilt.new(view_path(template), tilt_options)
         end
@@ -89,7 +98,7 @@ module Grape
       def layout_template
         layout_path = view_path(env['api.tilt.layout'] || 'layouts/application')
         if Grape::Rabl.configuration.cache_template_loading
-          Grape::Rabl::Formatter.tilt_cache.fetch(tilt_cache_key(layout_path)) do
+          Grape::Rabl::Formatter.fetch_cached_template(tilt_cache_key(layout_path)) do
             ::Tilt.new(layout_path, tilt_options) if File.exist?(layout_path)
           end
         else

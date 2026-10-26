@@ -7,6 +7,22 @@ Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github
 [![Code Climate](https://codeclimate.com/github/ruby-grape/grape-rabl.svg)](https://codeclimate.com/github/ruby-grape/grape-rabl)
 [![Coverage Status](https://img.shields.io/coveralls/ruby-grape/grape-rabl.svg)](https://coveralls.io/r/ruby-grape/grape-rabl?branch=master)
 
+# Table of Contents
+
+- [Installation](#installation)
+- [Upgrading](#upgrading)
+- [Usage](#usage)
+  - [Setup view root directory](#setup-view-root-directory)
+  - [Tell your API to use Grape::Formatter::Rabl](#tell-your-api-to-use-grapeformatterrabl)
+  - [Use rabl templates conditionally](#use-rabl-templates-conditionally)
+  - [Use rabl layout](#use-rabl-layout)
+  - [Enable template caching](#enable-template-caching)
+- [You can omit .rabl](#you-can-omit-rabl)
+  - [Example](#example)
+- [Usage with rails](#usage-with-rails)
+- [Specs](#specs)
+- [Contributing](#contributing)
+
 ## Installation
 
 Requires Ruby 2.7 or newer. CI covers Grape 1.x, 2.x, 3.x, and 4.x; Grape 3.x and 4.x are tested on Ruby 3.3 and newer. Grape 1.x requires Rack 2.x.
@@ -84,6 +100,8 @@ end
 ### Enable template caching
 
 Grape-rabl allows for template caching after templates are loaded initially.
+
+Template creation and cache lookups are synchronized across requests, including cached missing layouts. Caching does not depend on the deprecated `Tilt::Cache` class. Disable caching during development if templates need to reload after changes.
 
 You can enable template caching:
 

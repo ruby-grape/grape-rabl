@@ -2,6 +2,43 @@
 
 require 'spec_helper'
 
+describe Grape::Rabl::Formatter do
+  before do
+    hide_const('Tilt::Cache')
+    described_class.tilt_cache.clear
+  end
+
+  after do
+    described_class.tilt_cache.clear
+  end
+
+  it 'reuses a cached template without Tilt::Cache' do
+    template = described_class.fetch_cached_template(:template) { Object.new }
+
+    expect(described_class.fetch_cached_template(:template) { raise 'recompiled' })
+      .to equal(template)
+  end
+
+  it 'memoizes missing layouts' do
+    expect(described_class.fetch_cached_template(:missing) { nil }).to be_nil
+    expect(described_class.fetch_cached_template(:missing) { raise 'looked up again' })
+      .to be_nil
+  end
+
+  it 'creates one cached template for concurrent requests' do
+    threads = 4.times.map do
+      Thread.new do
+        described_class.fetch_cached_template(:concurrent) do
+          sleep 0.01
+          Object.new
+        end
+      end
+    end
+
+    expect(threads.map(&:value).map(&:object_id).uniq.size).to eq(1)
+  end
+end
+
 describe 'Grape::Rabl formatter' do
   subject do
     Class.new(Grape::API)
