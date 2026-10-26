@@ -2,6 +2,7 @@
 
 * Your contribution here.
 
+* [#56](https://github.com/ruby-grape/grape-rabl/pull/56): Merge Coveralls coverage across the stable Ruby/Grape matrix and refresh the coverage badge - [@dblock](https://github.com/dblock).
 * [#55](https://github.com/ruby-grape/grape-rabl/pull/55): Replace deprecated `Tilt::Cache` with a synchronized Hash cache for templates and layouts - [@dblock](https://github.com/dblock).
 * [#54](https://github.com/ruby-grape/grape-rabl/pull/54): Replaced Travis CI with GitHub Actions, modernized RuboCop and coverage reporting, and added a Ruby 2.7-4.0/Grape 1.x-4.x compatibility matrix; Ruby 2.7 or newer is now required - [@dblock](https://github.com/dblock).
 * [#54](https://github.com/ruby-grape/grape-rabl/pull/54): Fixed fallback rendering with newer Grape versions, including Grape 4.x - [@dblock](https://github.com/dblock).
