@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'Grape::Rabl formatter' do
@@ -38,7 +40,7 @@ describe 'Grape::Rabl formatter' do
 
       it 'falls back to :txt given no other format information' do
         get '/oops'
-        expect(last_response.body).to eq('{:errors=>["bad", "things", "happened"]}')
+        expect(last_response.body).to eq({ errors: %w[bad things happened] }.to_s)
         expect(last_response.headers['Content-Type']).to eq('text/plain')
       end
 

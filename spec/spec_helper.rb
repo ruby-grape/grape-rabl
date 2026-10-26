@@ -1,21 +1,28 @@
+# frozen_string_literal: true
+
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'bundler'
 Bundler.setup :default, :test
 
-require 'coveralls'
-Coveralls.wear!
+require 'simplecov'
+require 'simplecov-lcov'
+SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
+SimpleCov::Formatter::LcovFormatter.config.lcov_file_name = 'grape-rabl.lcov'
+SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
+SimpleCov.start do
+  add_filter '/spec/'
+end
 
 require 'active_support/core_ext/hash/conversions'
 require 'grape/rabl'
 require 'rspec'
 require 'rack/test'
-require 'ostruct'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.raise_errors_for_deprecations!
 end
 
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].sort.each { |f| require f }

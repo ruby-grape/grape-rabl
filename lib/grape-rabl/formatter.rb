@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 
 module Grape
@@ -38,14 +40,14 @@ module Grape
       # Find a formatter to fallback to. `env[Grape::Env::API_FORMAT]` will always be a
       # valid formatter, otherwise a HTTP 406 error would have already have been thrown
       def fallback_formatter
-        Grape::Formatter.formatter_for(env[Grape::Env::API_FORMAT])
+        Grape::Formatter.formatter_for(env[Grape::Env::API_FORMAT], formatters: {})
       end
 
       def view_path(template)
         if template.split('.')[-1] == 'rabl'
           File.join(env['api.tilt.root'], template)
         else
-          File.join(env['api.tilt.root'], (template + '.rabl'))
+          File.join(env['api.tilt.root'], "#{template}.rabl")
         end
       end
 
@@ -55,6 +57,7 @@ module Grape
 
       def rabl
         raise 'missing rabl template' unless rabl_template
+
         set_view_root unless env['api.tilt.root']
         yield rabl_template
       end
@@ -86,7 +89,9 @@ module Grape
       def layout_template
         layout_path = view_path(env['api.tilt.layout'] || 'layouts/application')
         if Grape::Rabl.configuration.cache_template_loading
-          Grape::Rabl::Formatter.tilt_cache.fetch(tilt_cache_key(layout_path)) { ::Tilt.new(layout_path, tilt_options) if File.exist?(layout_path) }
+          Grape::Rabl::Formatter.tilt_cache.fetch(tilt_cache_key(layout_path)) do
+            ::Tilt.new(layout_path, tilt_options) if File.exist?(layout_path)
+          end
         else
           ::Tilt.new(layout_path, tilt_options) if File.exist?(layout_path)
         end

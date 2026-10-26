@@ -3,11 +3,13 @@
 Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github.com/ruby-grape/grape)!
 
 [![Gem Version](http://img.shields.io/gem/v/grape-rabl.svg)](http://badge.fury.io/rb/grape-rabl)
-[![Build Status](http://img.shields.io/travis/ruby-grape/grape-rabl.svg)](https://travis-ci.org/ruby-grape/grape-rabl)
+[![Build Status](https://github.com/ruby-grape/grape-rabl/actions/workflows/test.yml/badge.svg)](https://github.com/ruby-grape/grape-rabl/actions/workflows/test.yml)
 [![Code Climate](https://codeclimate.com/github/ruby-grape/grape-rabl.svg)](https://codeclimate.com/github/ruby-grape/grape-rabl)
 [![Coverage Status](https://img.shields.io/coveralls/ruby-grape/grape-rabl.svg)](https://coveralls.io/r/ruby-grape/grape-rabl?branch=master)
 
 ## Installation
+
+Requires Ruby 2.7 or newer. CI covers Grape 1.x, 2.x, 3.x, and 4.x; Grape 3.x and 4.x are tested on Ruby 3.3 and newer. Grape 1.x requires Rack 2.x.
 
 Add the `grape` and `grape-rabl` gems to Gemfile.
 
