@@ -5,7 +5,7 @@ Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github
 [![Gem Version](http://img.shields.io/gem/v/grape-rabl.svg)](http://badge.fury.io/rb/grape-rabl)
 [![Build Status](https://github.com/ruby-grape/grape-rabl/actions/workflows/test.yml/badge.svg)](https://github.com/ruby-grape/grape-rabl/actions/workflows/test.yml)
 [![Code Climate](https://codeclimate.com/github/ruby-grape/grape-rabl.svg)](https://codeclimate.com/github/ruby-grape/grape-rabl)
-[![Coverage Status](https://img.shields.io/coveralls/ruby-grape/grape-rabl.svg)](https://coveralls.io/r/ruby-grape/grape-rabl?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/ruby-grape/grape-rabl/badge.svg?branch=master)](https://coveralls.io/github/ruby-grape/grape-rabl?branch=master)
 
 # Table of Contents
 
@@ -213,6 +213,8 @@ end
 ```
 
 ## Specs
+
+Spec runs generate `coverage/lcov/grape-rabl.lcov` with SimpleCov. CI merges coverage from every stable Ruby/Grape matrix job in Coveralls using the built-in GitHub token; ruby-head remains experimental and does not publish coverage.
 
 See ["Writing Tests"](https://github.com/ruby-grape/grape#writing-tests) in [grape](https://github.com/ruby-grape/grape) README.
 
