@@ -1,6 +1,4 @@
-#### (Next)
-
-* Your contribution here.
+#### 0.6.0 (2026-10-27)
 
 * [#59](https://github.com/ruby-grape/grape-rabl/pull/59): Document optional Swagger generation with explicit response schemas while retaining Rabl rendering - [@dblock](https://github.com/dblock).
 * [#58](https://github.com/ruby-grape/grape-rabl/pull/58): Support static and request-aware configured template roots while preserving explicit request roots and cache isolation - [@dblock](https://github.com/dblock).
@@ -43,7 +41,6 @@
 * Removed JRuby support - [@dblock](https://github.com/dblock).
 * Enable using locals with `.render` - [@hobofan](https://github.com/hobofan).
 * Enable support for template caching - [@kushkella](https://github.com/kushkella).
-
 
 #### 0.2.2
 
