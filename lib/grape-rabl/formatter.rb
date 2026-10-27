@@ -78,7 +78,11 @@ module Grape
       end
 
       def set_view_root
-        raise "Use Rack::Config to set 'api.tilt.root' in config.ru"
+        root = Grape::Rabl.configuration.tilt_root
+        env['api.tilt.root'] = root.is_a?(Proc) ? endpoint.instance_exec(&root) : root
+        return if env['api.tilt.root']
+
+        raise "Use Rack::Config to set 'api.tilt.root' in config.ru or configure 'tilt_root'"
       end
 
       def tilt_template(template)
