@@ -39,6 +39,101 @@ describe Grape::Rabl::Formatter do
   end
 end
 
+describe 'configured template roots' do
+  let(:app) { Class.new(Grape::API) }
+  let(:request_root) { nil }
+  let(:root) do
+    lambda {
+      File.join(__dir__, 'views', env['api.version'] == 'v2' ? 'layout_test' : '')
+    }
+  end
+
+  before do
+    Grape::Rabl.configuration.tilt_root = root
+    Grape::Rabl::Formatter.tilt_cache.clear
+    app.version %w[v1 v2], using: :path
+    app.format :json
+    app.formatter :json, Grape::Formatter::Rabl
+    override = request_root
+    app.before { env['api.tilt.root'] = override } if override
+    app.get('/user', rabl: 'user', rabl_locals: { details: 'base template' }) do
+      @user = Struct.new(:name).new('Jane')
+      @project = Struct.new(:name).new('First')
+      @status = 200
+    end
+  end
+
+  after do
+    Grape::Rabl.reset_configuration!
+    Grape::Rabl::Formatter.tilt_cache.clear
+  end
+
+  [false, true].each do |cache|
+    context "with template caching #{cache ? 'enabled' : 'disabled'}" do
+      before do
+        Grape::Rabl.configuration.cache_template_loading = cache
+      end
+
+      it 'resolves templates and layouts per request without leaking roots' do
+        user = { 'user' => { 'name' => 'Jane', 'project' => { 'name' => 'First' } } }
+        base_user = { 'user' => user.fetch('user').merge('details' => 'base template') }
+
+        get '/v1/user'
+        expect(JSON.parse(last_response.body)).to eq(base_user)
+
+        get '/v2/user'
+        expect(JSON.parse(last_response.body)).to eq('status' => 200, 'result' => user)
+
+        get '/v1/user'
+        expect(JSON.parse(last_response.body)).to eq(base_user)
+        expect(Grape::Rabl.configuration.tilt_root).to equal(root)
+      end
+    end
+  end
+
+  context 'a static configured root' do
+    let(:root) { File.join(__dir__, 'views') }
+
+    it 'does not automatically append the API version' do
+      get '/v2/user'
+      expect(JSON.parse(last_response.body)).to have_key('user')
+      expect(last_request.env['api.tilt.root']).to eq(root)
+    end
+  end
+
+  context 'an explicit request root' do
+    let(:root) { -> { raise 'configured root should not run' } }
+    let(:request_root) { File.join(__dir__, 'views') }
+
+    it 'takes precedence over the configured root' do
+      get '/v1/user'
+      expect(JSON.parse(last_response.body)).to have_key('user')
+    end
+  end
+
+  context 'a missing resolved root' do
+    let(:root) { -> {} }
+
+    it 'raises the configuration error' do
+      expect { get '/v1/user' }.to raise_error(RuntimeError, /configure 'tilt_root'/)
+    end
+  end
+
+  context 'a failing root resolver' do
+    let(:root) { -> { raise 'root lookup failed' } }
+
+    it 'propagates the error' do
+      expect { get '/v1/user' }.to raise_error(RuntimeError, 'root lookup failed')
+    end
+
+    it 'does not run when falling back to the default formatter' do
+      app.get('/health') { { healthy: true } }
+      get '/v1/health'
+      expect(JSON.parse(last_response.body)).to eq('healthy' => true)
+    end
+  end
+end
+
 describe 'Grape::Rabl formatter' do
   subject do
     Class.new(Grape::API)

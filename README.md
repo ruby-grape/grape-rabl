@@ -12,6 +12,7 @@ Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github
 - [Upgrading](#upgrading)
 - [Usage](#usage)
   - [Setup view root directory](#setup-view-root-directory)
+  - [Configure request-aware view roots](#configure-request-aware-view-roots)
   - [Tell your API to use Grape::Formatter::Rabl](#tell-your-api-to-use-grapeformatterrabl)
   - [Use rabl templates conditionally](#use-rabl-templates-conditionally)
   - [Use rabl layout](#use-rabl-layout)
@@ -51,6 +52,20 @@ use Rack::Config do |env|
   env['api.tilt.root'] = '/path/to/view/root/directory'
 end
 ```
+
+### Configure request-aware view roots
+
+Instead of setting a root with middleware, configure a static directory or a zero-argument Proc/lambda:
+
+```ruby
+Grape::Rabl.configure do |config|
+  config.tilt_root = -> { File.join('/path/to/views', env['api.version'].to_s) }
+end
+```
+
+The Proc runs in the current Grape endpoint's context, so it can access `env`, `params`, and API helpers. The example uses `/path/to/views/v1` for version `v1` and `/path/to/views` for an unversioned request. Version directories are opt-in: a static `config.tilt_root` or existing `env['api.tilt.root']` is used unchanged.
+
+An explicit `env['api.tilt.root']` takes precedence over the configured root, and the Proc is not called in that case. Resolution happens only when rendering a Rabl template; the resolved root is stored in the request environment, not back into configuration. Templates, partials, and layouts use that root, and cached templates remain separated by resolved directory and format. Resolver exceptions propagate; returning `nil` or `false` raises the missing-root configuration error.
 
 ### Tell your API to use Grape::Formatter::Rabl
 

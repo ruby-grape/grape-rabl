@@ -26,7 +26,7 @@ describe Grape::Rabl do
 
   it 'should raise error about root directory' do
     subject.get('/home', rabl: true) { nil }
-    expect { get '/home' }.to raise_error(RuntimeError, "Use Rack::Config to set 'api.tilt.root' in config.ru")
+    expect { get '/home' }.to raise_error(RuntimeError, /Use Rack::Config to set 'api.tilt.root' in config.ru/)
   end
 
   context 'titl root is setup' do
