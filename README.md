@@ -20,6 +20,7 @@ Use [Rabl](https://github.com/nesquena/rabl) templates in [Grape](https://github
 - [You can omit .rabl](#you-can-omit-rabl)
   - [Example](#example)
 - [Usage with rails](#usage-with-rails)
+- [Swagger documentation](#swagger-documentation)
 - [Specs](#specs)
 - [Contributing](#contributing)
 
@@ -225,6 +226,66 @@ GrapeExampleRails::Application.routes.draw do
   mount MyAPI , :at => "/api"
 end
 ```
+
+## Swagger documentation
+
+Use [grape-swagger](https://github.com/ruby-grape/grape-swagger) to generate Swagger/OpenAPI 2.0 documentation. Rabl still renders the responses: Swagger does not infer a response schema by executing a template or reading its Ruby code.
+
+One option is to define documentation-only entities with the optional [grape-swagger-entity](https://github.com/ruby-grape/grape-swagger-entity) parser. Add these gems to your application's Gemfile, choosing versions compatible with your Grape version:
+
+```ruby
+gem 'grape-rabl'
+gem 'grape-entity'
+gem 'grape-swagger'
+gem 'grape-swagger-entity'
+```
+
+Load the parser before generating documentation. For example, with an application-provided `User` model:
+
+```ruby
+# config.ru
+require 'grape/rabl'
+require 'grape-swagger'
+require 'grape-swagger/entity'
+
+class UserFields < Grape::Entity
+  expose :id, documentation: { type: Integer }
+  expose :name, documentation: { type: String }
+end
+
+class UserResponse < Grape::Entity
+  expose :user, using: UserFields
+end
+
+class API < Grape::API
+  format :json
+  formatter :json, Grape::Formatter::Rabl
+
+  desc 'Return a user', success: UserResponse
+  get '/users/:id', rabl: 'user' do
+    @user = User.find(params[:id])
+  end
+
+  add_swagger_documentation
+end
+
+use Rack::Config do |env|
+  env['api.tilt.root'] = File.expand_path('views', __dir__)
+end
+run API
+```
+
+```ruby
+# views/user.rabl
+object @user => :user
+attributes :id, :name
+```
+
+`GET /users/1` returns a Rabl-rendered response such as `{ "user": { "id": 1, "name": "Jane" } }`. `GET /swagger_doc` returns the documentation, with the endpoint's success response referencing `UserResponse` and its nested `UserFields` definition.
+
+The entities describe the output only; do not call `present` or replace the Rabl formatter with an Entity formatter. `success: UserResponse` selects the documented schema, not the response serializer. Documentation endpoints have no Rabl template and use the normal JSON fallback.
+
+Keep the schema aligned with the actual template, including root envelopes, collections, layouts, partials, and conditional fields. These are not inferred from Rabl automatically. For a schema system other than Entity, use grape-swagger's [custom model parser interface](https://github.com/ruby-grape/grape-swagger#custom-model-parsers). None of these documentation dependencies is required for normal Rabl rendering.
 
 ## Specs
 
