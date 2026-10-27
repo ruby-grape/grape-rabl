@@ -2,6 +2,7 @@
 
 * Your contribution here.
 
+* [#59](https://github.com/ruby-grape/grape-rabl/pull/59): Document optional Swagger generation with explicit response schemas while retaining Rabl rendering - [@dblock](https://github.com/dblock).
 * [#58](https://github.com/ruby-grape/grape-rabl/pull/58): Support static and request-aware configured template roots while preserving explicit request roots and cache isolation - [@dblock](https://github.com/dblock).
 * [#57](https://github.com/ruby-grape/grape-rabl/pull/57): Remove the obsolete Code Climate badge, use HTTPS and RubyGems for the gem badge, and scope the CI badge to master pushes - [@dblock](https://github.com/dblock).
 * [#56](https://github.com/ruby-grape/grape-rabl/pull/56): Merge Coveralls coverage across the stable Ruby/Grape matrix and refresh the coverage badge - [@dblock](https://github.com/dblock).
