@@ -1,3 +1,7 @@
+#### (Next)
+
+* Your contribution here.
+
 #### 0.6.0 (2026-10-27)
 
 * [#59](https://github.com/ruby-grape/grape-rabl/pull/59): Document optional Swagger generation with explicit response schemas while retaining Rabl rendering - [@dblock](https://github.com/dblock).
